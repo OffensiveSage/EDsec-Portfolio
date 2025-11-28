@@ -26,6 +26,12 @@ export default function ContactSection() {
             const notificationTemplateId = "template_apmxbij"; // Hardcoded for now to ensure it works immediately, or can use env var
             const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
+            console.log("DEBUG ENV VARS:", {
+                serviceId: serviceId ? "Exists" : "MISSING",
+                templateId: autoReplyTemplateId ? "Exists" : "MISSING",
+                publicKey: publicKey ? "Exists" : "MISSING"
+            });
+
             if (!serviceId || !autoReplyTemplateId || !publicKey) {
                 throw new Error("EmailJS configuration missing");
             }
