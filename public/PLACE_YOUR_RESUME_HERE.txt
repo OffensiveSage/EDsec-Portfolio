@@ -1,0 +1,12 @@
+INSTRUCTIONS:
+============
+
+To enable resume downloads:
+
+1. Place your actual PDF resume in this 'public' folder
+2. Name it exactly: resume.pdf
+3. Delete this instruction file
+
+The download button in the navigation will then serve your PDF.
+
+Alternatively, you can use the web-based resume viewer at /resume
