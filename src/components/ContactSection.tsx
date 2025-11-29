@@ -212,14 +212,6 @@ export default function ContactSection() {
                             <p className="text-xs font-mono text-gray-400 group-hover:text-white transition-colors">GITHUB</p>
                         </a>
                     </div>
-
-                    <div className="mt-12 p-4 border border-cyber-green bg-cyber-black text-center animate-pulse">
-                        <p className="text-cyber-green font-bold font-mono">
-                            SYSTEM STATUS: ONLINE<br />
-                            ID: {new Date().toISOString()}<br />
-                            KEYS: HARDCODED
-                        </p>
-                    </div>
                 </motion.div>
             </div>
         </section>
