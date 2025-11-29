@@ -13,6 +13,10 @@ export default function ContactSection() {
     const [error, setError] = useState<string | null>(null);
 
 
+    useEffect(() => {
+        // Initialize EmailJS with hardcoded public key
+        emailjs.init('ld0CAmwro6sCwq3j8');
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -23,23 +27,28 @@ export default function ContactSection() {
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
-            // Call our API route instead of EmailJS directly
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
+            // Send notification email to you
+            await emailjs.send(
+                'service_jxu8lkp',
+                'template_apmxbij',
+                {
+                    from_name: formData.name,
+                    from_email: formData.email,
                     message: formData.message,
-                }),
-            });
+                    to_email: 'eshwar.desetty@gmail.com',
+                }
+            );
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to send message');
-            }
+            // Send auto-reply to user
+            await emailjs.send(
+                'service_jxu8lkp',
+                'template_3szhmze',
+                {
+                    to_name: formData.name,
+                    to_email: formData.email,
+                    from_name: 'Eshwar Desetty',
+                }
+            );
 
             setIsEncrypting(false);
             setIsSent(true);

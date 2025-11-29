@@ -53,15 +53,7 @@ export default function AboutSection() {
                                     whileTap={{ scale: 0.95 }}
                                     className="px-6 py-2 border border-cyber-green text-cyber-green font-mono font-bold rounded flex items-center gap-2 group transition-all"
                                     onClick={() => {
-                                        // Open Resume Page
                                         window.open('/resume', '_blank');
-                                        // Trigger Download
-                                        // The provided instruction attempted to insert descriptive text here,
-                                        // which would cause a syntax error and break the button's functionality.
-                                        // To maintain syntactical correctness and the original intent of the button,
-                                        // the original resume download logic is preserved.
-                                        // If the intention was to add this text as a comment or in a different element,
-                                        // please provide a more specific instruction for its placement.
                                         const link = document.createElement('a');
                                         link.href = '/resume.pdf';
                                         link.download = 'Eshwar_Desetty_Resume.pdf';
