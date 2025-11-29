@@ -10,19 +10,16 @@ export default function ContactSection() {
     const [isEncrypting, setIsEncrypting] = useState(false);
     const [isSent, setIsSent] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [isInitialized, setIsInitialized] = useState(false);
+    
+    // EmailJS configuration
+    const EMAILJS_PUBLIC_KEY = 'ld0CAmwro6sCwq3j8';
+    const EMAILJS_SERVICE_ID = 'service_jxu8lkp';
+    const CONTACT_TEMPLATE_ID = 'template_apmxbij';
+    const AUTO_REPLY_TEMPLATE_ID = 'template_3szhmze';
 
+    // Initialize EmailJS on component mount
     useEffect(() => {
-        // Initialize EmailJS with public key
-        // EmailJS.init() doesn't return a promise in some versions
-        try {
-            emailjs.init('ld0CAmwro6sCwq3j8');
-            setIsInitialized(true);
-        } catch (err) {
-            console.error("Failed to initialize EmailJS:", err);
-            // Don't set error immediately, try to initialize on submit
-            setIsInitialized(false);
-        }
+        emailjs.init(EMAILJS_PUBLIC_KEY);
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -44,19 +41,6 @@ export default function ContactSection() {
         setIsEncrypting(true);
         setError(null);
 
-        // Try to initialize EmailJS if not already initialized
-        if (!isInitialized) {
-            try {
-                emailjs.init('ld0CAmwro6sCwq3j8');
-                setIsInitialized(true);
-            } catch (initErr) {
-                console.error("Failed to initialize EmailJS on submit:", initErr);
-                setIsEncrypting(false);
-                setError("TRANSMISSION_FAILED: Email service unavailable. Please try again later.");
-                return;
-            }
-        }
-
         // Simulate encryption delay for effect
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
@@ -77,13 +61,21 @@ export default function ContactSection() {
             const trimmedMessage = formData.message.trim();
 
             // Send form submission to your email (Contact Us template)
+            // Pass public key directly in the send call
             let contactResult;
             let autoReplyResult;
             
+            // Ensure EmailJS is initialized before sending
+            try {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+            } catch (initErr) {
+                // Ignore if already initialized
+            }
+
             try {
                 contactResult = await emailjs.send(
-                    'service_jxu8lkp',
-                    'template_apmxbij',
+                    EMAILJS_SERVICE_ID,
+                    CONTACT_TEMPLATE_ID,
                     {
                         name: trimmedName,
                         email: trimmedEmail,
@@ -94,14 +86,34 @@ export default function ContactSection() {
                 );
             } catch (contactErr: any) {
                 console.error("Contact form email failed:", contactErr);
-                throw new Error(`Failed to send form submission: ${contactErr?.text || contactErr?.message || 'Unknown error'}`);
+                console.error("Contact error details:", {
+                    status: contactErr?.status,
+                    text: contactErr?.text,
+                    message: contactErr?.message,
+                    response: contactErr?.response,
+                    error: contactErr
+                });
+                
+                // Extract more detailed error message
+                let errorMsg = 'Unknown error';
+                if (contactErr?.text) {
+                    errorMsg = contactErr.text;
+                } else if (contactErr?.message) {
+                    errorMsg = contactErr.message;
+                } else if (contactErr?.statusText) {
+                    errorMsg = contactErr.statusText;
+                } else if (contactErr?.response?.text) {
+                    errorMsg = contactErr.response.text;
+                }
+                
+                throw new Error(`Failed to send form submission: ${errorMsg}`);
             }
 
             // Try to send auto-reply (don't fail if this fails, main email is more important)
             try {
                 autoReplyResult = await emailjs.send(
-                    'service_jxu8lkp',
-                    'template_3szhmze',
+                    EMAILJS_SERVICE_ID,
+                    AUTO_REPLY_TEMPLATE_ID,
                     {
                         from_name: trimmedName,
                         from_email: trimmedEmail,
