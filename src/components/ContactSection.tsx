@@ -224,6 +224,11 @@ export default function ContactSection() {
                             <p className="text-xs font-mono text-gray-400 group-hover:text-white transition-colors">GITHUB</p>
                         </a>
                     </div>
+
+                    {/* Version Tag for Debugging */}
+                    <div className="mt-8 text-center">
+                        <p className="text-[10px] font-mono text-cyber-green/30">System v1.1 (Debug Active)</p>
+                    </div>
                 </motion.div>
             </div>
         </section>
