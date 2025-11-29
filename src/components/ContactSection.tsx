@@ -27,26 +27,14 @@ export default function ContactSection() {
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
-            // Send notification email to you
-            await emailjs.send(
-                'service_jxu8lkp',
-                'template_apmxbij',
-                {
-                    from_name: formData.name,
-                    from_email: formData.email,
-                    message: formData.message,
-                    to_email: 'eshwar.desetty@gmail.com',
-                }
-            );
-
-            // Send auto-reply to user
+            // Send email using the template
             await emailjs.send(
                 'service_jxu8lkp',
                 'template_3szhmze',
                 {
-                    to_name: formData.name,
-                    to_email: formData.email,
-                    from_name: 'Eshwar Desetty',
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    message: formData.message,
                 }
             );
 
@@ -60,8 +48,13 @@ export default function ContactSection() {
             }, 3000);
         } catch (err) {
             console.error("Failed to send email:", err);
+            console.error("Error details:", JSON.stringify(err, null, 2));
+            if (err instanceof Error) {
+                console.error("Error message:", err.message);
+                console.error("Error stack:", err.stack);
+            }
             setIsEncrypting(false);
-            setError("TRANSMISSION_FAILED: Secure channel unavailable.");
+            setError(`TRANSMISSION_FAILED: ${err instanceof Error ? err.message : 'Unknown error'}`);
         }
     };
 
