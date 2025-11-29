@@ -9,17 +9,41 @@ export default function ContactSection() {
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [isEncrypting, setIsEncrypting] = useState(false);
     const [isSent, setIsSent] = useState(false);
-
     const [error, setError] = useState<string | null>(null);
-
+    const [isInitialized, setIsInitialized] = useState(false);
 
     useEffect(() => {
         // Initialize EmailJS with hardcoded public key
-        emailjs.init('ld0CAmwro6sCwq3j8');
+        try {
+            emailjs.init('ld0CAmwro6sCwq3j8');
+            setIsInitialized(true);
+        } catch (err) {
+            console.error("Failed to initialize EmailJS:", err);
+            setError("Failed to initialize email service. Please refresh the page.");
+        }
     }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        // Validate form data
+        if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+            setError("All fields are required. Please fill in all fields.");
+            return;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setError("Please enter a valid email address.");
+            return;
+        }
+
+        if (!isInitialized) {
+            setError("Email service not initialized. Please refresh the page.");
+            return;
+        }
+
         setIsEncrypting(true);
         setError(null);
 
@@ -27,34 +51,81 @@ export default function ContactSection() {
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
-            // Send email using the template
-            await emailjs.send(
+            // Get current time for the template
+            const currentTime = new Date().toLocaleString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+
+            const trimmedName = formData.name.trim();
+            const trimmedEmail = formData.email.trim();
+            const trimmedMessage = formData.message.trim();
+
+            // Send form submission to your email (Contact Us template)
+            const contactResult = await emailjs.send(
                 'service_jxu8lkp',
-                'template_3szhmze',
+                'template_apmxbij',
                 {
-                    from_name: formData.name,
-                    from_email: formData.email,
-                    message: formData.message,
+                    name: trimmedName,
+                    email: trimmedEmail,
+                    message: trimmedMessage,
+                    title: `Message from ${trimmedName}`,
+                    time: currentTime,
                 }
             );
 
-            setIsEncrypting(false);
-            setIsSent(true);
+            // Send auto-reply to the sender (Auto-Reply template)
+            const autoReplyResult = await emailjs.send(
+                'service_jxu8lkp',
+                'template_3szhmze',
+                {
+                    from_name: trimmedName,
+                    from_email: trimmedEmail,
+                }
+            );
 
-            // Reset after 3 seconds
-            setTimeout(() => {
-                setIsSent(false);
-                setFormData({ name: "", email: "", message: "" });
-            }, 3000);
-        } catch (err) {
-            console.error("Failed to send email:", err);
-            console.error("Error details:", JSON.stringify(err, null, 2));
-            if (err instanceof Error) {
-                console.error("Error message:", err.message);
-                console.error("Error stack:", err.stack);
+            // Check if both emails were sent successfully
+            if (contactResult && contactResult.text === 'OK' && autoReplyResult && autoReplyResult.text === 'OK') {
+                setIsEncrypting(false);
+                setIsSent(true);
+
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    setIsSent(false);
+                    setFormData({ name: "", email: "", message: "" });
+                }, 3000);
+            } else {
+                throw new Error('One or both emails failed to send');
             }
+        } catch (err: any) {
+            console.error("Failed to send email:", err);
+            
+            let errorMessage = "TRANSMISSION_FAILED: ";
+            
+            if (err?.text) {
+                errorMessage += err.text;
+            } else if (err?.message) {
+                errorMessage += err.message;
+            } else if (typeof err === 'string') {
+                errorMessage += err;
+            } else if (err?.status) {
+                errorMessage += `HTTP ${err.status}: ${err.text || 'Request failed'}`;
+            } else {
+                errorMessage += "Unable to send message. Please try again later or contact directly via email.";
+            }
+            
             setIsEncrypting(false);
-            setError(`TRANSMISSION_FAILED: ${err instanceof Error ? err.message : 'Unknown error'}`);
+            setError(errorMessage);
+            
+            // Clear error after 5 seconds
+            setTimeout(() => {
+                setError(null);
+            }, 5000);
         }
     };
 
@@ -120,10 +191,21 @@ export default function ContactSection() {
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 {error && (
-                                    <div className="p-3 border border-red-500/50 bg-red-500/10 rounded flex items-center gap-2 text-red-500 text-sm font-mono">
-                                        <AlertCircle className="w-4 h-4" />
-                                        {error}
-                                    </div>
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="p-3 border border-red-500/50 bg-red-500/10 rounded flex items-start gap-2 text-red-500 text-sm font-mono"
+                                    >
+                                        <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                                        <div className="flex-1">{error}</div>
+                                        <button
+                                            onClick={() => setError(null)}
+                                            className="text-red-500 hover:text-red-400 transition-colors ml-2"
+                                            aria-label="Dismiss error"
+                                        >
+                                            ×
+                                        </button>
+                                    </motion.div>
                                 )}
                                 <div>
                                     <label className="block text-sm font-mono text-cyber-green mb-2">
@@ -169,12 +251,17 @@ export default function ContactSection() {
 
                                 <motion.button
                                     type="submit"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="w-full py-4 bg-cyber-green text-black font-mono font-bold rounded flex items-center justify-center gap-2 hover:bg-cyber-neon transition-colors"
+                                    disabled={isEncrypting}
+                                    whileHover={!isEncrypting ? { scale: 1.02 } : {}}
+                                    whileTap={!isEncrypting ? { scale: 0.98 } : {}}
+                                    className={`w-full py-4 bg-cyber-green text-black font-mono font-bold rounded flex items-center justify-center gap-2 transition-colors ${
+                                        isEncrypting 
+                                            ? 'opacity-50 cursor-not-allowed' 
+                                            : 'hover:bg-cyber-neon'
+                                    }`}
                                 >
                                     <Send className="w-5 h-5" />
-                                    TRANSMIT_MESSAGE
+                                    {isEncrypting ? 'TRANSMITTING...' : 'TRANSMIT_MESSAGE'}
                                 </motion.button>
                             </form>
                         )}
