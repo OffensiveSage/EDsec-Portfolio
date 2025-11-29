@@ -213,8 +213,12 @@ export default function ContactSection() {
                         </a>
                     </div>
 
+                    <div className="mt-12 p-4 border border-cyber-green bg-cyber-black text-center animate-pulse">
+                        <p className="text-cyber-green font-bold font-mono">SYSTEM STATUS: HARDCODED v2 (KEYS ACTIVE)</p>
+                    </div>
                 </motion.div>
             </div>
         </section>
     );
 }
+```
