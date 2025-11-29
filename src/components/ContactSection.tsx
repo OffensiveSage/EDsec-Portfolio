@@ -12,13 +12,7 @@ export default function ContactSection() {
 
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        console.log("--- DEBUG DIAGNOSTICS ---");
-        console.log("Service ID:", process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ? "DEFINED" : "MISSING");
-        console.log("Template ID:", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ? "DEFINED" : "MISSING");
-        console.log("Public Key:", process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? "DEFINED" : "MISSING");
-        console.log("-------------------------");
-    }, []);
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -29,16 +23,10 @@ export default function ContactSection() {
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
-            const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-            const autoReplyTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+            const serviceId = "service_jxu8lkp";
+            const autoReplyTemplateId = "template_3szhmze";
             const notificationTemplateId = "template_apmxbij"; // Hardcoded for now to ensure it works immediately, or can use env var
-            const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-            console.log("DEBUG ENV VARS:", {
-                serviceId: serviceId ? "Exists" : "MISSING",
-                templateId: autoReplyTemplateId ? "Exists" : "MISSING",
-                publicKey: publicKey ? "Exists" : "MISSING"
-            });
+            const publicKey = "ld0CAmwro6sCwq3j8";
 
             if (!serviceId || !autoReplyTemplateId || !publicKey) {
                 throw new Error("EmailJS configuration missing");
@@ -225,10 +213,6 @@ export default function ContactSection() {
                         </a>
                     </div>
 
-                    {/* Version Tag for Debugging */}
-                    <div className="mt-8 text-center">
-                        <p className="text-[10px] font-mono text-cyber-green/30">System v1.1 (Debug Active)</p>
-                    </div>
                 </motion.div>
             </div>
         </section>
