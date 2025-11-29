@@ -23,42 +23,23 @@ export default function ContactSection() {
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
-            const serviceId = "service_jxu8lkp";
-            const autoReplyTemplateId = "template_3szhmze";
-            const notificationTemplateId = "template_apmxbij"; // Hardcoded for now to ensure it works immediately, or can use env var
-            const publicKey = "ld0CAmwro6sCwq3j8";
+            // Call our API route instead of EmailJS directly
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                }),
+            });
 
-            if (!serviceId || !autoReplyTemplateId || !publicKey) {
-                throw new Error("EmailJS configuration missing");
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to send message');
             }
-
-            // 1. Send Notification to YOU (using the new template)
-            const notificationPromise = emailjs.send(
-                serviceId,
-                notificationTemplateId,
-                {
-                    from_name: formData.name,
-                    from_email: formData.email,
-                    message: formData.message,
-                    to_email: "eshwar.desetty03@gmail.com", // Explicitly ensure it goes to you
-                },
-                publicKey
-            );
-
-            // 2. Send Auto-Reply to SENDER (using the original template)
-            const autoReplyPromise = emailjs.send(
-                serviceId,
-                autoReplyTemplateId,
-                {
-                    from_name: formData.name,
-                    from_email: formData.email,
-                    message: formData.message,
-                    to_email: formData.email, // Explicitly ensure it goes to sender
-                },
-                publicKey
-            );
-
-            await Promise.all([notificationPromise, autoReplyPromise]);
 
             setIsEncrypting(false);
             setIsSent(true);
