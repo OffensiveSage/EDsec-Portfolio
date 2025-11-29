@@ -214,7 +214,11 @@ export default function ContactSection() {
                     </div>
 
                     <div className="mt-12 p-4 border border-cyber-green bg-cyber-black text-center animate-pulse">
-                        <p className="text-cyber-green font-bold font-mono">SYSTEM STATUS: HARDCODED v2 (KEYS ACTIVE)</p>
+                        <p className="text-cyber-green font-bold font-mono">
+                            SYSTEM STATUS: ONLINE<br />
+                            ID: {new Date().toISOString()}<br />
+                            KEYS: HARDCODED
+                        </p>
                     </div>
                 </motion.div>
             </div>
