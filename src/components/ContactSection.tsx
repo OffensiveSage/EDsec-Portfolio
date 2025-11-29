@@ -13,13 +13,15 @@ export default function ContactSection() {
     const [isInitialized, setIsInitialized] = useState(false);
 
     useEffect(() => {
-        // Initialize EmailJS with hardcoded public key
+        // Initialize EmailJS with public key
+        // EmailJS.init() doesn't return a promise in some versions
         try {
             emailjs.init('ld0CAmwro6sCwq3j8');
             setIsInitialized(true);
         } catch (err) {
             console.error("Failed to initialize EmailJS:", err);
-            setError("Failed to initialize email service. Please refresh the page.");
+            // Don't set error immediately, try to initialize on submit
+            setIsInitialized(false);
         }
     }, []);
 
@@ -39,13 +41,21 @@ export default function ContactSection() {
             return;
         }
 
-        if (!isInitialized) {
-            setError("Email service not initialized. Please refresh the page.");
-            return;
-        }
-
         setIsEncrypting(true);
         setError(null);
+
+        // Try to initialize EmailJS if not already initialized
+        if (!isInitialized) {
+            try {
+                emailjs.init('ld0CAmwro6sCwq3j8');
+                setIsInitialized(true);
+            } catch (initErr) {
+                console.error("Failed to initialize EmailJS on submit:", initErr);
+                setIsEncrypting(false);
+                setError("TRANSMISSION_FAILED: Email service unavailable. Please try again later.");
+                return;
+            }
+        }
 
         // Simulate encryption delay for effect
         await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -67,30 +77,43 @@ export default function ContactSection() {
             const trimmedMessage = formData.message.trim();
 
             // Send form submission to your email (Contact Us template)
-            const contactResult = await emailjs.send(
-                'service_jxu8lkp',
-                'template_apmxbij',
-                {
-                    name: trimmedName,
-                    email: trimmedEmail,
-                    message: trimmedMessage,
-                    title: `Message from ${trimmedName}`,
-                    time: currentTime,
-                }
-            );
+            let contactResult;
+            let autoReplyResult;
+            
+            try {
+                contactResult = await emailjs.send(
+                    'service_jxu8lkp',
+                    'template_apmxbij',
+                    {
+                        name: trimmedName,
+                        email: trimmedEmail,
+                        message: trimmedMessage,
+                        title: `Message from ${trimmedName}`,
+                        time: currentTime,
+                    }
+                );
+            } catch (contactErr: any) {
+                console.error("Contact form email failed:", contactErr);
+                throw new Error(`Failed to send form submission: ${contactErr?.text || contactErr?.message || 'Unknown error'}`);
+            }
 
-            // Send auto-reply to the sender (Auto-Reply template)
-            const autoReplyResult = await emailjs.send(
-                'service_jxu8lkp',
-                'template_3szhmze',
-                {
-                    from_name: trimmedName,
-                    from_email: trimmedEmail,
-                }
-            );
+            // Try to send auto-reply (don't fail if this fails, main email is more important)
+            try {
+                autoReplyResult = await emailjs.send(
+                    'service_jxu8lkp',
+                    'template_3szhmze',
+                    {
+                        from_name: trimmedName,
+                        from_email: trimmedEmail,
+                    }
+                );
+            } catch (autoReplyErr: any) {
+                console.error("Auto-reply email failed:", autoReplyErr);
+                // Continue even if auto-reply fails - main email was sent
+            }
 
-            // Check if both emails were sent successfully
-            if (contactResult && contactResult.text === 'OK' && autoReplyResult && autoReplyResult.text === 'OK') {
+            // Check if main email (contact form) was sent successfully
+            if (contactResult && contactResult.text === 'OK') {
                 setIsEncrypting(false);
                 setIsSent(true);
 
@@ -100,13 +123,15 @@ export default function ContactSection() {
                     setFormData({ name: "", email: "", message: "" });
                 }, 3000);
             } else {
-                throw new Error('One or both emails failed to send');
+                throw new Error('Failed to send form submission');
             }
         } catch (err: any) {
             console.error("Failed to send email:", err);
+            console.error("Error details:", JSON.stringify(err, null, 2));
             
             let errorMessage = "TRANSMISSION_FAILED: ";
             
+            // Handle different error formats from EmailJS
             if (err?.text) {
                 errorMessage += err.text;
             } else if (err?.message) {
@@ -115,17 +140,19 @@ export default function ContactSection() {
                 errorMessage += err;
             } else if (err?.status) {
                 errorMessage += `HTTP ${err.status}: ${err.text || 'Request failed'}`;
+            } else if (err?.response) {
+                errorMessage += err.response.text || err.response.statusText || 'Network error';
             } else {
-                errorMessage += "Unable to send message. Please try again later or contact directly via email.";
+                errorMessage += "Unable to send message. Please check your connection and try again.";
             }
             
             setIsEncrypting(false);
             setError(errorMessage);
             
-            // Clear error after 5 seconds
+            // Clear error after 8 seconds
             setTimeout(() => {
                 setError(null);
-            }, 5000);
+            }, 8000);
         }
     };
 
