@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, Send, CheckCircle, AlertCircle, Github, Linkedin } from "lucide-react";
 import emailjs from "@emailjs/browser";
@@ -11,6 +11,14 @@ export default function ContactSection() {
     const [isSent, setIsSent] = useState(false);
 
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        console.log("--- DEBUG DIAGNOSTICS ---");
+        console.log("Service ID:", process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ? "DEFINED" : "MISSING");
+        console.log("Template ID:", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ? "DEFINED" : "MISSING");
+        console.log("Public Key:", process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? "DEFINED" : "MISSING");
+        console.log("-------------------------");
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
