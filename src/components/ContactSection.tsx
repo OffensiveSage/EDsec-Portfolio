@@ -1,26 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, Send, CheckCircle, AlertCircle, Github, Linkedin } from "lucide-react";
-import emailjs from "@emailjs/browser";
 
 export default function ContactSection() {
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [isEncrypting, setIsEncrypting] = useState(false);
     const [isSent, setIsSent] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    
-    // EmailJS configuration
-    const EMAILJS_PUBLIC_KEY = 'ld0CAmwro6sCwq3j8';
-    const EMAILJS_SERVICE_ID = 'service_jxu8lkp';
-    const CONTACT_TEMPLATE_ID = 'template_apmxbij';
-    const AUTO_REPLY_TEMPLATE_ID = 'template_3szhmze';
-
-    // Initialize EmailJS on component mount
-    useEffect(() => {
-        emailjs.init(EMAILJS_PUBLIC_KEY);
-    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -45,98 +33,38 @@ export default function ContactSection() {
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
-            // Get current time for the template
-            const currentTime = new Date().toLocaleString('en-US', {
-                weekday: 'short',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
-
             const trimmedName = formData.name.trim();
             const trimmedEmail = formData.email.trim();
             const trimmedMessage = formData.message.trim();
 
-            // Send form submission to your email (Contact Us template)
-            // Pass public key directly in the send call
-            let contactResult;
-            let autoReplyResult;
-            
-            // Ensure EmailJS is initialized before sending
-            try {
-                emailjs.init(EMAILJS_PUBLIC_KEY);
-            } catch (initErr) {
-                // Ignore if already initialized
+            // Call our API route instead of EmailJS directly (server-side)
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: trimmedName,
+                    email: trimmedEmail,
+                    message: trimmedMessage,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || data.details || 'Failed to send message');
             }
 
-            try {
-                contactResult = await emailjs.send(
-                    EMAILJS_SERVICE_ID,
-                    CONTACT_TEMPLATE_ID,
-                    {
-                        name: trimmedName,
-                        email: trimmedEmail,
-                        message: trimmedMessage,
-                        title: `Message from ${trimmedName}`,
-                        time: currentTime,
-                    }
-                );
-            } catch (contactErr: any) {
-                console.error("Contact form email failed:", contactErr);
-                console.error("Contact error details:", {
-                    status: contactErr?.status,
-                    text: contactErr?.text,
-                    message: contactErr?.message,
-                    response: contactErr?.response,
-                    error: contactErr
-                });
-                
-                // Extract more detailed error message
-                let errorMsg = 'Unknown error';
-                if (contactErr?.text) {
-                    errorMsg = contactErr.text;
-                } else if (contactErr?.message) {
-                    errorMsg = contactErr.message;
-                } else if (contactErr?.statusText) {
-                    errorMsg = contactErr.statusText;
-                } else if (contactErr?.response?.text) {
-                    errorMsg = contactErr.response.text;
-                }
-                
-                throw new Error(`Failed to send form submission: ${errorMsg}`);
-            }
+            // Success!
+            setIsEncrypting(false);
+            setIsSent(true);
 
-            // Try to send auto-reply (don't fail if this fails, main email is more important)
-            try {
-                autoReplyResult = await emailjs.send(
-                    EMAILJS_SERVICE_ID,
-                    AUTO_REPLY_TEMPLATE_ID,
-                    {
-                        from_name: trimmedName,
-                        from_email: trimmedEmail,
-                    }
-                );
-            } catch (autoReplyErr: any) {
-                console.error("Auto-reply email failed:", autoReplyErr);
-                // Continue even if auto-reply fails - main email was sent
-            }
-
-            // Check if main email (contact form) was sent successfully
-            if (contactResult && contactResult.text === 'OK') {
-                setIsEncrypting(false);
-                setIsSent(true);
-
-                // Reset after 3 seconds
-                setTimeout(() => {
-                    setIsSent(false);
-                    setFormData({ name: "", email: "", message: "" });
-                }, 3000);
-            } else {
-                throw new Error('Failed to send form submission');
-            }
+            // Reset after 3 seconds
+            setTimeout(() => {
+                setIsSent(false);
+                setFormData({ name: "", email: "", message: "" });
+            }, 3000);
         } catch (err: any) {
             console.error("Failed to send email:", err);
             console.error("Error details:", JSON.stringify(err, null, 2));
