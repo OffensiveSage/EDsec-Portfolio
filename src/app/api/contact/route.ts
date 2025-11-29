@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import emailjs from '@emailjs/nodejs';
 
 // EmailJS configuration
 const EMAILJS_PUBLIC_KEY = 'ld0CAmwro6sCwq3j8';
 const EMAILJS_SERVICE_ID = 'service_jxu8lkp';
 const CONTACT_TEMPLATE_ID = 'template_apmxbij';
 const AUTO_REPLY_TEMPLATE_ID = 'template_3szhmze';
+const EMAILJS_API_URL = 'https://api.emailjs.com/api/v1.0/email/send';
 
 export async function POST(request: NextRequest) {
     try {
@@ -44,31 +44,38 @@ export async function POST(request: NextRequest) {
         const trimmedEmail = email.trim();
         const trimmedMessage = message.trim();
 
-        // Initialize EmailJS
-        emailjs.init({
-            publicKey: EMAILJS_PUBLIC_KEY,
-        });
-
-        // Send form submission to your email (Contact Us template)
-        let contactResult;
+        // Send form submission to your email (Contact Us template) using REST API
+        let contactResponse;
         try {
-            contactResult = await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                CONTACT_TEMPLATE_ID,
-                {
-                    name: trimmedName,
-                    email: trimmedEmail,
-                    message: trimmedMessage,
-                    title: `Message from ${trimmedName}`,
-                    time: currentTime,
-                }
-            );
+            contactResponse = await fetch(EMAILJS_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    service_id: EMAILJS_SERVICE_ID,
+                    template_id: CONTACT_TEMPLATE_ID,
+                    user_id: EMAILJS_PUBLIC_KEY,
+                    template_params: {
+                        name: trimmedName,
+                        email: trimmedEmail,
+                        message: trimmedMessage,
+                        title: `Message from ${trimmedName}`,
+                        time: currentTime,
+                    },
+                }),
+            });
+
+            if (!contactResponse.ok) {
+                const errorText = await contactResponse.text();
+                throw new Error(`EmailJS API error: ${contactResponse.status} - ${errorText}`);
+            }
         } catch (contactErr: any) {
             console.error('Contact form email failed:', contactErr);
             return NextResponse.json(
                 { 
                     error: 'Failed to send form submission',
-                    details: contactErr?.text || contactErr?.message || 'Unknown error'
+                    details: contactErr?.message || 'Unknown error'
                 },
                 { status: 500 }
             );
@@ -76,21 +83,28 @@ export async function POST(request: NextRequest) {
 
         // Try to send auto-reply (don't fail if this fails, main email is more important)
         try {
-            await emailjs.send(
-                EMAILJS_SERVICE_ID,
-                AUTO_REPLY_TEMPLATE_ID,
-                {
-                    from_name: trimmedName,
-                    from_email: trimmedEmail,
-                }
-            );
+            await fetch(EMAILJS_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    service_id: EMAILJS_SERVICE_ID,
+                    template_id: AUTO_REPLY_TEMPLATE_ID,
+                    user_id: EMAILJS_PUBLIC_KEY,
+                    template_params: {
+                        from_name: trimmedName,
+                        from_email: trimmedEmail,
+                    },
+                }),
+            });
         } catch (autoReplyErr: any) {
             console.error('Auto-reply email failed:', autoReplyErr);
             // Continue even if auto-reply fails - main email was sent
         }
 
         // Check if main email was sent successfully
-        if (contactResult && contactResult.status === 200) {
+        if (contactResponse && contactResponse.ok) {
             return NextResponse.json(
                 { success: true, message: 'Email sent successfully' },
                 { status: 200 }
