@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import emailjs from '@emailjs/browser';
 
 // Hardcoded EmailJS credentials
 const SERVICE_ID = 'service_jxu8lkp';
@@ -20,33 +19,50 @@ export async function POST(request: Request) {
             );
         }
 
-        // Initialize EmailJS
-        emailjs.init(PUBLIC_KEY);
-
-        // Send notification to you
-        await emailjs.send(
-            SERVICE_ID,
-            NOTIFICATION_TEMPLATE_ID,
-            {
-                from_name: name,
-                from_email: email,
-                message: message,
-                to_email: 'eshwar.desetty@gmail.com',
+        // Send notification to you using EmailJS REST API
+        const notificationResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
             },
-            PUBLIC_KEY
-        );
+            body: JSON.stringify({
+                service_id: SERVICE_ID,
+                template_id: NOTIFICATION_TEMPLATE_ID,
+                user_id: PUBLIC_KEY,
+                template_params: {
+                    from_name: name,
+                    from_email: email,
+                    message: message,
+                    to_email: 'eshwar.desetty@gmail.com',
+                },
+            }),
+        });
+
+        if (!notificationResponse.ok) {
+            throw new Error('Failed to send notification email');
+        }
 
         // Send auto-reply to user
-        await emailjs.send(
-            SERVICE_ID,
-            AUTO_REPLY_TEMPLATE_ID,
-            {
-                to_name: name,
-                to_email: email,
-                from_name: 'Eshwar Desetty',
+        const autoReplyResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
             },
-            PUBLIC_KEY
-        );
+            body: JSON.stringify({
+                service_id: SERVICE_ID,
+                template_id: AUTO_REPLY_TEMPLATE_ID,
+                user_id: PUBLIC_KEY,
+                template_params: {
+                    to_name: name,
+                    to_email: email,
+                    from_name: 'Eshwar Desetty',
+                },
+            }),
+        });
+
+        if (!autoReplyResponse.ok) {
+            throw new Error('Failed to send auto-reply email');
+        }
 
         return NextResponse.json({ success: true });
     } catch (error) {
