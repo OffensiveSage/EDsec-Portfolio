@@ -42,7 +42,7 @@ export default function AboutSection() {
                             </p>
                             <div className="border-l-2 border-cyber-green pl-4 py-2 bg-cyber-gray/20 text-sm md:text-base">
                                 <p>
-                                    Ever felt like cybersecurity is written in a completely different language? That's exactly why I am passionate about making security actually make sense for everyone. What excites me most is finding ways to simplify the complex without dumbing it down. Through my experience, I have discovered that security issues are not always just technical problems; sometimes they are communication challenges. The best fix is not always the most sophisticated one, rather it's the one people will actually use. Currently deep in cyber anomaly detection and threat intelligence, learning to spot patterns that others might miss. Previously tested AI vulnerabilities through malicious prompt injections and built blockchain voting systems which taught me to think both like attacker and defender. I am discovering the best solutions come from various perspectives and genuine collaboration. Every conversation teaches me something new about how different people experience security challenges. I am always excited to connect with people and learn from their perspectives.
+                                    Ever felt like cybersecurity is written in a completely different language? That&apos;s exactly why I am passionate about making security actually make sense for everyone. What excites me most is finding ways to simplify the complex without dumbing it down. Through my experience, I have discovered that security issues are not always just technical problems; sometimes they are communication challenges. The best fix is not always the most sophisticated one, rather it&apos;s the one people will actually use. Currently deep in cyber anomaly detection and threat intelligence, learning to spot patterns that others might miss. Previously tested AI vulnerabilities through malicious prompt injections and built blockchain voting systems which taught me to think both like attacker and defender. I am discovering the best solutions come from various perspectives and genuine collaboration. Every conversation teaches me something new about how different people experience security challenges. I am always excited to connect with people and learn from their perspectives.
                                 </p>
                             </div>
 
@@ -56,6 +56,12 @@ export default function AboutSection() {
                                         // Open Resume Page
                                         window.open('/resume', '_blank');
                                         // Trigger Download
+                                        // The provided instruction attempted to insert descriptive text here,
+                                        // which would cause a syntax error and break the button's functionality.
+                                        // To maintain syntactical correctness and the original intent of the button,
+                                        // the original resume download logic is preserved.
+                                        // If the intention was to add this text as a comment or in a different element,
+                                        // please provide a more specific instruction for its placement.
                                         const link = document.createElement('a');
                                         link.href = '/resume.pdf';
                                         link.download = 'Eshwar_Desetty_Resume.pdf';

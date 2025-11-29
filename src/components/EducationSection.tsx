@@ -4,6 +4,15 @@ import { motion } from "framer-motion";
 import { GraduationCap, Calendar, Award } from "lucide-react";
 import { education } from "@/data/portfolioData";
 
+interface EducationItem {
+    id: number;
+    degree: string;
+    school: string;
+    period: string;
+    description: string;
+    achievements: string[];
+}
+
 export default function EducationSection() {
     return (
         <section id="education" className="min-h-screen flex items-center snap-start relative z-10 bg-cyber-black/90">
@@ -21,7 +30,7 @@ export default function EducationSection() {
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {education.map((edu: any, index: number) => (
+                        {education.map((edu: EducationItem, index: number) => (
                             <motion.div
                                 key={edu.id}
                                 initial={{ opacity: 0, scale: 0.9 }}

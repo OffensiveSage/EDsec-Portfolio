@@ -30,7 +30,7 @@ export default function Home() {
     // Check if user has already visited in this session
     const hasVisited = sessionStorage.getItem("hasVisited");
     if (hasVisited) {
-      setIsLoading(false);
+      setTimeout(() => setIsLoading(false), 0);
     }
   }, []);
 
@@ -86,11 +86,10 @@ export default function Home() {
                   <span className="text-cyber-green text-glow">PORTFOLIO</span>
                 </h1>
 
-                <p className="text-xl text-gray-400 max-w-2xl mb-12 font-mono italic">
-                  "The only truly secure system is one that is powered off."
-                  <br />
-                  <span className="text-cyber-green not-italic mt-2 block">— Gene Spafford</span>
-                </p>
+                <span className="text-cyber-green font-mono text-sm md:text-base">
+                  &quot;The only truly secure system is one that is powered off.&quot;
+                </span>    <br />
+                <span className="text-cyber-green not-italic mt-2 block">— Gene Spafford</span>
 
                 <div className="flex gap-6 flex-wrap justify-center">
                   <motion.button
