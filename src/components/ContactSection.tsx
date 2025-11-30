@@ -1,14 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, Send, CheckCircle, AlertCircle, Github, Linkedin } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 export default function ContactSection() {
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
     const [isEncrypting, setIsEncrypting] = useState(false);
     const [isSent, setIsSent] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    // EmailJS configuration
+    const EMAILJS_PUBLIC_KEY = 'ld0CAmwro6sCwq3j8';
+    const EMAILJS_SERVICE_ID = 'service_jxu8lkp';
+    const CONTACT_TEMPLATE_ID = 'template_apmxbij';
+    const AUTO_REPLY_TEMPLATE_ID = 'template_3szhmze';
+
+    // Initialize EmailJS on component mount
+    useEffect(() => {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,44 +45,76 @@ export default function ContactSection() {
         await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
+            // Get current time for the template
+            const currentTime = new Date().toLocaleString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+
             const trimmedName = formData.name.trim();
             const trimmedEmail = formData.email.trim();
             const trimmedMessage = formData.message.trim();
 
-            // Call our API route instead of EmailJS directly (server-side)
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: trimmedName,
-                    email: trimmedEmail,
-                    message: trimmedMessage,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.error || data.details || 'Failed to send message');
+            // Send form submission to your email (Contact Us template) - client-side
+            let contactResult;
+            try {
+                contactResult = await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    CONTACT_TEMPLATE_ID,
+                    {
+                        name: trimmedName,
+                        email: trimmedEmail,
+                        message: trimmedMessage,
+                        title: `Message from ${trimmedName}`,
+                        time: currentTime,
+                    }
+                );
+            } catch (contactErr: any) {
+                console.error("Contact form email failed:", contactErr);
+                throw new Error(contactErr?.text || contactErr?.message || 'Failed to send form submission');
             }
 
-            // Success!
-            setIsEncrypting(false);
-            setIsSent(true);
+            // Try to send auto-reply (don't fail if this fails, main email is more important)
+            try {
+                await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    AUTO_REPLY_TEMPLATE_ID,
+                    {
+                        from_name: trimmedName,
+                        from_email: trimmedEmail,
+                    }
+                );
+            } catch (autoReplyErr: any) {
+                console.error("Auto-reply email failed:", autoReplyErr);
+                // Continue even if auto-reply fails - main email was sent
+            }
 
-            // Reset after 3 seconds
-            setTimeout(() => {
-                setIsSent(false);
-                setFormData({ name: "", email: "", message: "" });
-            }, 3000);
+            // Check if main email was sent successfully
+            if (contactResult && contactResult.text === 'OK') {
+                setIsEncrypting(false);
+                setIsSent(true);
+
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    setIsSent(false);
+                    setFormData({ name: "", email: "", message: "" });
+                }, 3000);
+            } else {
+                throw new Error('Failed to send form submission');
+            }
         } catch (err: any) {
             console.error("Failed to send email:", err);
             
             let errorMessage = "TRANSMISSION_FAILED: ";
             
-            if (err?.message) {
+            if (err?.text) {
+                errorMessage += err.text;
+            } else if (err?.message) {
                 errorMessage += err.message;
             } else if (typeof err === 'string') {
                 errorMessage += err;
