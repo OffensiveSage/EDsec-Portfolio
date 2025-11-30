@@ -1,14 +1,60 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { LRUCache } from 'lru-cache';
 
-// EmailJS configuration
-const EMAILJS_PUBLIC_KEY = 'ld0CAmwro6sCwq3j8';
-const EMAILJS_SERVICE_ID = 'service_jxu8lkp';
-const CONTACT_TEMPLATE_ID = 'template_apmxbij';
-const AUTO_REPLY_TEMPLATE_ID = 'template_3szhmze';
-const EMAILJS_API_URL = 'https://api.emailjs.com/api/v1.0/email/send';
+// Rate limiting configuration
+const rateLimit = new LRUCache<string, number>({
+    max: 500, // Maximum number of entries
+    ttl: 60 * 1000, // 1 minute TTL
+});
+
+// Rate limit: 3 requests per minute per IP
+const RATE_LIMIT_MAX = 3;
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+
+function getRateLimitKey(request: NextRequest): string {
+    // Get IP address from headers (works with Vercel, Cloudflare, etc.)
+    const forwarded = request.headers.get('x-forwarded-for');
+    const ip = forwarded ? forwarded.split(',')[0] : 
+               request.headers.get('x-real-ip') || 
+               'unknown';
+    return `rate_limit_${ip}`;
+}
+
+function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
+    const count = rateLimit.get(key) || 0;
+    
+    if (count >= RATE_LIMIT_MAX) {
+        return { allowed: false, remaining: 0 };
+    }
+    
+    rateLimit.set(key, count + 1);
+    return { allowed: true, remaining: RATE_LIMIT_MAX - count - 1 };
+}
 
 export async function POST(request: NextRequest) {
     try {
+        // Rate limiting check
+        const rateLimitKey = getRateLimitKey(request);
+        const rateLimitResult = checkRateLimit(rateLimitKey);
+        
+        if (!rateLimitResult.allowed) {
+            return NextResponse.json(
+                { 
+                    error: 'Rate limit exceeded',
+                    message: 'Too many requests. Please try again in a minute.',
+                    retryAfter: 60
+                },
+                { 
+                    status: 429,
+                    headers: {
+                        'Retry-After': '60',
+                        'X-RateLimit-Limit': RATE_LIMIT_MAX.toString(),
+                        'X-RateLimit-Remaining': '0',
+                    }
+                }
+            );
+        }
+
         const body = await request.json();
         const { name, email, message } = body;
 
@@ -29,92 +75,56 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Get current time for the template
-        const currentTime = new Date().toLocaleString('en-US', {
-            weekday: 'short',
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
-        });
-
-        const trimmedName = name.trim();
-        const trimmedEmail = email.trim();
+        // Additional validation: prevent spam
         const trimmedMessage = message.trim();
+        if (trimmedMessage.length < 10) {
+            return NextResponse.json(
+                { error: 'Message is too short' },
+                { status: 400 }
+            );
+        }
 
-        // Send form submission to your email (Contact Us template) using REST API
-        let contactResponse;
-        try {
-            contactResponse = await fetch(EMAILJS_API_URL, {
-                method: 'POST',
+        if (trimmedMessage.length > 5000) {
+            return NextResponse.json(
+                { error: 'Message is too long' },
+                { status: 400 }
+            );
+        }
+
+        // Check for common spam patterns
+        const spamPatterns = [
+            /http[s]?:\/\//gi,
+            /www\./gi,
+            /bit\.ly|tinyurl|short\.link/gi,
+        ];
+        
+        const linkCount = spamPatterns.reduce((count, pattern) => {
+            return count + (trimmedMessage.match(pattern) || []).length;
+        }, 0);
+
+        if (linkCount > 3) {
+            return NextResponse.json(
+                { error: 'Message contains too many links' },
+                { status: 400 }
+            );
+        }
+
+        // Return success - client will handle EmailJS sending
+        // This API route validates and rate limits, but EmailJS sends from client
+        return NextResponse.json(
+            { 
+                success: true, 
+                message: 'Request validated',
+                rateLimitRemaining: rateLimitResult.remaining
+            },
+            { 
+                status: 200,
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    service_id: EMAILJS_SERVICE_ID,
-                    template_id: CONTACT_TEMPLATE_ID,
-                    user_id: EMAILJS_PUBLIC_KEY,
-                    template_params: {
-                        name: trimmedName,
-                        email: trimmedEmail,
-                        message: trimmedMessage,
-                        title: `Message from ${trimmedName}`,
-                        time: currentTime,
-                    },
-                }),
-            });
-
-            if (!contactResponse.ok) {
-                const errorText = await contactResponse.text();
-                throw new Error(`EmailJS API error: ${contactResponse.status} - ${errorText}`);
+                    'X-RateLimit-Limit': RATE_LIMIT_MAX.toString(),
+                    'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+                }
             }
-        } catch (contactErr: any) {
-            console.error('Contact form email failed:', contactErr);
-            return NextResponse.json(
-                { 
-                    error: 'Failed to send form submission',
-                    details: contactErr?.message || 'Unknown error'
-                },
-                { status: 500 }
-            );
-        }
-
-        // Try to send auto-reply (don't fail if this fails, main email is more important)
-        try {
-            await fetch(EMAILJS_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    service_id: EMAILJS_SERVICE_ID,
-                    template_id: AUTO_REPLY_TEMPLATE_ID,
-                    user_id: EMAILJS_PUBLIC_KEY,
-                    template_params: {
-                        from_name: trimmedName,
-                        from_email: trimmedEmail,
-                    },
-                }),
-            });
-        } catch (autoReplyErr: any) {
-            console.error('Auto-reply email failed:', autoReplyErr);
-            // Continue even if auto-reply fails - main email was sent
-        }
-
-        // Check if main email was sent successfully
-        if (contactResponse && contactResponse.ok) {
-            return NextResponse.json(
-                { success: true, message: 'Email sent successfully' },
-                { status: 200 }
-            );
-        } else {
-            return NextResponse.json(
-                { error: 'Failed to send email' },
-                { status: 500 }
-            );
-        }
+        );
     } catch (error: any) {
         console.error('API route error:', error);
         return NextResponse.json(
@@ -126,4 +136,3 @@ export async function POST(request: NextRequest) {
         );
     }
 }
-

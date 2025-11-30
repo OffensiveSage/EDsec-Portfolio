@@ -10,12 +10,16 @@ export default function ContactSection() {
     const [isEncrypting, setIsEncrypting] = useState(false);
     const [isSent, setIsSent] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
     // EmailJS configuration
     const EMAILJS_PUBLIC_KEY = 'ld0CAmwro6sCwq3j8';
     const EMAILJS_SERVICE_ID = 'service_jxu8lkp';
     const CONTACT_TEMPLATE_ID = 'template_apmxbij';
     const AUTO_REPLY_TEMPLATE_ID = 'template_3szhmze';
+
+    // Client-side rate limiting: minimum 10 seconds between submissions
+    const MIN_SUBMIT_INTERVAL = 10000; // 10 seconds
 
     // Initialize EmailJS on component mount
     useEffect(() => {
@@ -25,6 +29,15 @@ export default function ContactSection() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
+        // Client-side rate limiting check
+        const now = Date.now();
+        const timeSinceLastSubmit = now - lastSubmitTime;
+        if (timeSinceLastSubmit < MIN_SUBMIT_INTERVAL) {
+            const remainingSeconds = Math.ceil((MIN_SUBMIT_INTERVAL - timeSinceLastSubmit) / 1000);
+            setError(`Please wait ${remainingSeconds} second${remainingSeconds > 1 ? 's' : ''} before submitting again.`);
+            return;
+        }
+
         // Validate form data
         if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
             setError("All fields are required. Please fill in all fields.");
@@ -40,11 +53,38 @@ export default function ContactSection() {
 
         setIsEncrypting(true);
         setError(null);
+        setLastSubmitTime(now);
 
-        // Simulate encryption delay for effect
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        const trimmedName = formData.name.trim();
+        const trimmedEmail = formData.email.trim();
+        const trimmedMessage = formData.message.trim();
 
         try {
+            // First, validate and check rate limit via API route
+            const validationResponse = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: trimmedName,
+                    email: trimmedEmail,
+                    message: trimmedMessage,
+                }),
+            });
+
+            const validationData = await validationResponse.json();
+
+            if (!validationResponse.ok) {
+                if (validationResponse.status === 429) {
+                    throw new Error('Rate limit exceeded. Please wait a minute before trying again.');
+                }
+                throw new Error(validationData.error || validationData.message || 'Validation failed');
+            }
+
+            // Simulate encryption delay for effect
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+
             // Get current time for the template
             const currentTime = new Date().toLocaleString('en-US', {
                 weekday: 'short',
@@ -55,10 +95,6 @@ export default function ContactSection() {
                 minute: '2-digit',
                 hour12: true
             });
-
-            const trimmedName = formData.name.trim();
-            const trimmedEmail = formData.email.trim();
-            const trimmedMessage = formData.message.trim();
 
             // Send form submission to your email (Contact Us template) - client-side
             let contactResult;
