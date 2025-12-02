@@ -26,12 +26,13 @@ export default function Navbar() {
     ];
 
     return (
-        <motion.nav
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
-            className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center bg-cyber-black/80 backdrop-blur-md border-b border-cyber-green/20"
-        >
+        <>
+            <motion.nav
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.5, delay: 1 }}
+                className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center bg-cyber-black/80 backdrop-blur-md border-b border-cyber-green/20"
+            >
             <div
                 className="flex items-center gap-2 cursor-pointer group"
                 onClick={() => scrollToSection("hero")}
@@ -62,32 +63,37 @@ export default function Navbar() {
                 </a>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 text-cyber-green hover:text-cyber-neon transition-colors touch-manipulation"
-                aria-label="Toggle menu"
-            >
-                {isMobileMenuOpen ? (
-                    <X className="w-6 h-6" />
-                ) : (
-                    <Menu className="w-6 h-6" />
-                )}
-            </button>
-        </motion.nav>
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setIsMobileMenuOpen(!isMobileMenuOpen);
+                    }}
+                    className="md:hidden p-2 text-cyber-green hover:text-cyber-neon active:text-cyber-neon transition-colors touch-manipulation relative z-[60]"
+                    aria-label="Toggle menu"
+                    type="button"
+                    style={{ WebkitTapHighlightColor: 'transparent' }}
+                >
+                    {isMobileMenuOpen ? (
+                        <X className="w-6 h-6" />
+                    ) : (
+                        <Menu className="w-6 h-6" />
+                    )}
+                </button>
+            </motion.nav>
 
-        {/* Mobile Menu Overlay */}
-        <AnimatePresence>
-            {isMobileMenuOpen && (
-                <>
-                    {/* Backdrop */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="fixed inset-0 bg-cyber-black/90 backdrop-blur-md z-40 md:hidden"
-                    />
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <>
+                        {/* Backdrop */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="fixed inset-0 bg-cyber-black/90 backdrop-blur-md z-[45] md:hidden"
+                        />
                     
                     {/* Menu Panel */}
                     <motion.div
@@ -95,7 +101,7 @@ export default function Navbar() {
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed top-0 right-0 h-full w-64 bg-cyber-black/95 backdrop-blur-md border-l border-cyber-green/20 z-50 md:hidden overflow-y-auto"
+                        className="fixed top-0 right-0 h-full w-64 bg-cyber-black/95 backdrop-blur-md border-l border-cyber-green/20 z-[55] md:hidden overflow-y-auto"
                     >
                         <div className="flex flex-col p-6 pt-20">
                             {navItems.map((item, index) => (
@@ -104,6 +110,7 @@ export default function Navbar() {
                                     onClick={() => scrollToSection(item.href.substring(1))}
                                     className="text-left py-4 px-4 text-sm font-mono text-gray-400 hover:text-cyber-neon hover:bg-cyber-gray/30 transition-colors border-b border-cyber-gray/10 touch-manipulation"
                                     style={{ minHeight: '44px' }}
+                                    type="button"
                                 >
                                     <span className="text-cyber-green mr-2">{">"}</span>
                                     {item.label}
