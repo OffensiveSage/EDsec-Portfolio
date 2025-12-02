@@ -50,14 +50,14 @@ export default function Home() {
           <Navbar />
           <MouseTrail />
           <Terminal />
-          <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+          <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory md:snap-mandatory scroll-smooth touch-pan-y" style={{ WebkitOverflowScrolling: 'touch' }}>
             <ParticleBackground />
             <ScanlineOverlay />
 
             {/* Hero Section */}
             <motion.div
               id="hero"
-              className="relative z-10 container mx-auto px-4 h-screen flex flex-col items-center justify-center snap-start overflow-hidden"
+              className="relative z-10 container mx-auto px-4 sm:px-6 h-screen flex flex-col items-center justify-center snap-start overflow-hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
@@ -80,7 +80,7 @@ export default function Home() {
                   </div>
                 </BouncingElement>
 
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tighter">
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 tracking-tighter px-4">
                   <TypingAnimation text="ESHWAR DESETTY" className="text-white" speed={80} />
                   <br />
                   <span className="text-cyber-green text-glow">PORTFOLIO</span>
@@ -91,11 +91,12 @@ export default function Home() {
                 </span>    <br />
                 <span className="text-cyber-green not-italic mt-2 block">— Gene Spafford</span>
 
-                <div className="flex gap-6 flex-wrap justify-center">
+                <div className="flex gap-4 sm:gap-6 flex-wrap justify-center px-4">
                   <motion.button
                     whileHover={{ scale: 1.05, backgroundColor: "var(--cyber-green)", color: "#000000" }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-3 border border-cyber-green text-cyber-green font-mono font-bold rounded hover:box-glow transition-all"
+                    className="px-6 sm:px-8 py-3 text-sm sm:text-base border border-cyber-green text-cyber-green font-mono font-bold rounded hover:box-glow transition-all touch-manipulation"
+                    style={{ minHeight: '44px', minWidth: '44px' }}
                     onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     ESTABLISH_UPLINK
@@ -103,7 +104,8 @@ export default function Home() {
                   <motion.button
                     whileHover={{ scale: 1.05, borderColor: "var(--cyber-neon)", color: "var(--cyber-neon)" }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-3 border border-gray-700 text-gray-400 font-mono font-bold rounded hover:text-cyber-neon transition-all"
+                    className="px-6 sm:px-8 py-3 text-sm sm:text-base border border-gray-700 text-gray-400 font-mono font-bold rounded hover:text-cyber-neon transition-all touch-manipulation"
+                    style={{ minHeight: '44px', minWidth: '44px' }}
                     onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
                   >
                     VIEW_PROJECTS

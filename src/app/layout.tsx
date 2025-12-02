@@ -12,6 +12,12 @@ const spaceMono = Space_Mono({
 export const metadata: Metadata = {
   title: "Eshwar Desetty | Cyber Security Portfolio",
   description: "Portfolio of Eshwar Desetty - Cyber Security Specialist",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
 };
 
 export default function RootLayout({
@@ -21,8 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+        <meta name="theme-color" content="#050505" />
+      </head>
       <body
-        className={`${spaceMono.variable} antialiased bg-black text-white overflow-hidden`}
+        className={`${spaceMono.variable} antialiased bg-black text-white overflow-hidden touch-pan-y`}
+        style={{ WebkitOverflowScrolling: 'touch' }}
       >
         {children}
         <Analytics />

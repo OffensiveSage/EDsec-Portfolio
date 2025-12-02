@@ -169,8 +169,8 @@ export default function ContactSection() {
     };
 
     return (
-        <section id="contact" className="min-h-screen flex items-center snap-start relative z-10 bg-cyber-black">
-            <div className="container mx-auto px-4 py-20">
+        <section id="contact" className="min-h-screen flex items-center snap-start relative z-10 bg-cyber-black py-20 sm:py-0">
+            <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-20">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -178,8 +178,8 @@ export default function ContactSection() {
                     viewport={{ once: true }}
                     className="max-w-2xl mx-auto"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold font-mono text-cyber-neon mb-12 flex items-center gap-3">
-                        <Lock className="w-8 h-8 text-cyber-green" />
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono text-cyber-neon mb-8 sm:mb-12 flex items-center gap-2 sm:gap-3 px-2">
+                        <Lock className="w-6 h-6 sm:w-8 sm:h-8 text-cyber-green flex-shrink-0" />
                         <span className="text-cyber-green">{">"}</span> SECURE_TRANSMISSION
                     </h2>
 
@@ -255,7 +255,8 @@ export default function ContactSection() {
                                         required
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        className="w-full px-4 py-3 bg-cyber-black border border-cyber-green/30 rounded text-white font-mono focus:border-cyber-green focus:outline-none transition-colors"
+                                        className="w-full px-4 py-3 sm:py-4 bg-cyber-black border border-cyber-green/30 rounded text-white font-mono focus:border-cyber-green focus:outline-none transition-colors text-base touch-manipulation"
+                                        style={{ minHeight: '44px' }}
                                         placeholder="Enter your name"
                                     />
                                 </div>
@@ -269,7 +270,8 @@ export default function ContactSection() {
                                         required
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                        className="w-full px-4 py-3 bg-cyber-black border border-cyber-green/30 rounded text-white font-mono focus:border-cyber-green focus:outline-none transition-colors"
+                                        className="w-full px-4 py-3 sm:py-4 bg-cyber-black border border-cyber-green/30 rounded text-white font-mono focus:border-cyber-green focus:outline-none transition-colors text-base touch-manipulation"
+                                        style={{ minHeight: '44px' }}
                                         placeholder="your.email@domain.com"
                                     />
                                 </div>
@@ -283,7 +285,7 @@ export default function ContactSection() {
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                         rows={6}
-                                        className="w-full px-4 py-3 bg-cyber-black border border-cyber-green/30 rounded text-white font-mono focus:border-cyber-green focus:outline-none transition-colors resize-none"
+                                        className="w-full px-4 py-3 sm:py-4 bg-cyber-black border border-cyber-green/30 rounded text-white font-mono focus:border-cyber-green focus:outline-none transition-colors resize-none text-base touch-manipulation"
                                         placeholder="Type your message here..."
                                     />
                                 </div>
@@ -293,11 +295,12 @@ export default function ContactSection() {
                                     disabled={isEncrypting}
                                     whileHover={!isEncrypting ? { scale: 1.02 } : {}}
                                     whileTap={!isEncrypting ? { scale: 0.98 } : {}}
-                                    className={`w-full py-4 bg-cyber-green text-black font-mono font-bold rounded flex items-center justify-center gap-2 transition-colors ${
+                                    className={`w-full py-4 sm:py-5 bg-cyber-green text-black font-mono font-bold rounded flex items-center justify-center gap-2 transition-colors text-base sm:text-lg touch-manipulation ${
                                         isEncrypting 
                                             ? 'opacity-50 cursor-not-allowed' 
                                             : 'hover:bg-cyber-neon'
                                     }`}
+                                    style={{ minHeight: '48px' }}
                                 >
                                     <Send className="w-5 h-5" />
                                     {isEncrypting ? 'TRANSMITTING...' : 'TRANSMIT_MESSAGE'}
@@ -307,17 +310,17 @@ export default function ContactSection() {
                     </div>
 
                     {/* Contact Info */}
-                    <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-                        <a href="mailto:eshwar.desetty03@gmail.com" className="p-4 border border-red-500/20 rounded hover:bg-red-500/10 transition-colors group flex flex-col items-center justify-center">
-                            <Mail className="w-8 h-8 text-red-500 mb-2 group-hover:scale-110 transition-transform" />
+                    <div className="mt-8 grid grid-cols-3 gap-3 sm:gap-4 text-center">
+                        <a href="mailto:eshwar.desetty03@gmail.com" className="p-3 sm:p-4 border border-red-500/20 rounded hover:bg-red-500/10 transition-colors group flex flex-col items-center justify-center touch-manipulation" style={{ minHeight: '80px' }}>
+                            <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-red-500 mb-2 group-hover:scale-110 transition-transform" />
                             <p className="text-xs font-mono text-gray-400 group-hover:text-red-400 transition-colors">EMAIL</p>
                         </a>
-                        <a href="https://linkedin.com/in/eshwar-desetty" target="_blank" rel="noopener noreferrer" className="p-4 border border-blue-500/20 rounded hover:bg-blue-500/10 transition-colors group flex flex-col items-center justify-center">
-                            <Linkedin className="w-8 h-8 text-blue-500 mb-2 group-hover:scale-110 transition-transform" />
+                        <a href="https://linkedin.com/in/eshwar-desetty" target="_blank" rel="noopener noreferrer" className="p-3 sm:p-4 border border-blue-500/20 rounded hover:bg-blue-500/10 transition-colors group flex flex-col items-center justify-center touch-manipulation" style={{ minHeight: '80px' }}>
+                            <Linkedin className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mb-2 group-hover:scale-110 transition-transform" />
                             <p className="text-xs font-mono text-gray-400 group-hover:text-blue-400 transition-colors">LINKEDIN</p>
                         </a>
-                        <a href="https://github.com/OffensiveSage" target="_blank" rel="noopener noreferrer" className="p-4 border border-white/20 rounded hover:bg-white/10 transition-colors group flex flex-col items-center justify-center">
-                            <Github className="w-8 h-8 text-white mb-2 group-hover:scale-110 transition-transform" />
+                        <a href="https://github.com/OffensiveSage" target="_blank" rel="noopener noreferrer" className="p-3 sm:p-4 border border-white/20 rounded hover:bg-white/10 transition-colors group flex flex-col items-center justify-center touch-manipulation" style={{ minHeight: '80px' }}>
+                            <Github className="w-6 h-6 sm:w-8 sm:h-8 text-white mb-2 group-hover:scale-110 transition-transform" />
                             <p className="text-xs font-mono text-gray-400 group-hover:text-white transition-colors">GITHUB</p>
                         </a>
                     </div>

@@ -108,3 +108,39 @@ body {
 .animate-cursor-blink {
   animation: cursor-blink 1s step-end infinite;
 }
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  /* Disable snap scroll on mobile for better UX */
+  .snap-y {
+    scroll-snap-type: none;
+  }
+  
+  /* Better touch targets */
+  button, a {
+    -webkit-tap-highlight-color: rgba(0, 255, 65, 0.2);
+  }
+  
+  /* Prevent text size adjustment on iOS */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+/* Touch manipulation for better performance */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Prevent pull-to-refresh on mobile */
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Better scrolling on iOS */
+@supports (-webkit-overflow-scrolling: touch) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}

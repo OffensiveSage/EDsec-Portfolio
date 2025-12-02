@@ -1,13 +1,17 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Shield } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Shield, Menu, X } from "lucide-react";
 
 export default function Navbar() {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });
+            setIsMobileMenuOpen(false); // Close mobile menu after navigation
         }
     };
 
@@ -58,10 +62,66 @@ export default function Navbar() {
                 </a>
             </div>
 
-            {/* Mobile Menu Button (Simple placeholder for now) */}
-            <div className="md:hidden text-cyber-green font-mono text-xs">
-                [MENU]
-            </div>
+            {/* Mobile Menu Button */}
+            <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2 text-cyber-green hover:text-cyber-neon transition-colors touch-manipulation"
+                aria-label="Toggle menu"
+            >
+                {isMobileMenuOpen ? (
+                    <X className="w-6 h-6" />
+                ) : (
+                    <Menu className="w-6 h-6" />
+                )}
+            </button>
         </motion.nav>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+            {isMobileMenuOpen && (
+                <>
+                    {/* Backdrop */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="fixed inset-0 bg-cyber-black/90 backdrop-blur-md z-40 md:hidden"
+                    />
+                    
+                    {/* Menu Panel */}
+                    <motion.div
+                        initial={{ x: "100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "100%" }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                        className="fixed top-0 right-0 h-full w-64 bg-cyber-black/95 backdrop-blur-md border-l border-cyber-green/20 z-50 md:hidden overflow-y-auto"
+                    >
+                        <div className="flex flex-col p-6 pt-20">
+                            {navItems.map((item, index) => (
+                                <button
+                                    key={item.label}
+                                    onClick={() => scrollToSection(item.href.substring(1))}
+                                    className="text-left py-4 px-4 text-sm font-mono text-gray-400 hover:text-cyber-neon hover:bg-cyber-gray/30 transition-colors border-b border-cyber-gray/10 touch-manipulation"
+                                    style={{ minHeight: '44px' }}
+                                >
+                                    <span className="text-cyber-green mr-2">{">"}</span>
+                                    {item.label}
+                                </button>
+                            ))}
+                            <a
+                                href="/resume"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="mt-4 px-4 py-3 border border-cyber-green/50 text-cyber-green text-sm font-mono hover:bg-cyber-green hover:text-black transition-all text-center touch-manipulation"
+                                style={{ minHeight: '44px' }}
+                            >
+                                [VIEW_RESUME]
+                            </a>
+                        </div>
+                    </motion.div>
+                </>
+            )}
+        </AnimatePresence>
+    </>
     );
 }
