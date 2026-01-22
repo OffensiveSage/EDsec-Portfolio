@@ -50,7 +50,8 @@ export default function Home() {
         <>
           <Navbar />
           <MouseTrail />
-          <Terminal />
+          {/* Terminal hidden for now - will develop later */}
+          {/* <Terminal /> */}
           <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory md:snap-mandatory scroll-smooth touch-pan-y" style={{ WebkitOverflowScrolling: 'touch' }}>
             <ParticleBackground />
             <ScanlineOverlay />
