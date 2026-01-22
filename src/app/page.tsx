@@ -18,6 +18,7 @@ import ExperienceSection from "@/components/ExperienceSection";
 import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import ArticlesSection from "@/components/ArticlesSection";
 import ContactSection from "@/components/ContactSection";
 import MouseTrail from "@/components/MouseTrail";
 import Terminal from "@/components/Terminal";
@@ -136,6 +137,7 @@ export default function Home() {
             <SkillsSection />
             <ExperienceSection />
             <ProjectsSection />
+            <ArticlesSection />
             <ContactSection />
           </div>
         </>

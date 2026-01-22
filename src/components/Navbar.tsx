@@ -22,6 +22,7 @@ export default function Navbar() {
         { label: "ARSENAL", href: "#skills" },
         { label: "LOGS", href: "#experience" },
         { label: "CASE_FILES", href: "#projects" },
+        { label: "ARTICLES", href: "#articles" },
         { label: "CONTACT", href: "#contact" },
     ];
 

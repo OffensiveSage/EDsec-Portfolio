@@ -1,47 +1,76 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Zap, Code, Lock } from "lucide-react";
+import { Shield, Zap, Code, Lock, Server, FileCheck } from "lucide-react";
 
 const skills = [
     {
-        category: "Security Tools & Platforms",
+        category: "Security Tools",
         icon: Zap,
         items: [
-            { name: "SIEM (Splunk/ELK)", level: 90 },
-            { name: "Burp Suite & Metasploit", level: 94 },
-            { name: "Wireshark & Nmap", level: 92 },
-            { name: "EDR / IDS / IPS", level: 88 },
-            { name: "Azure & Cloud Security", level: 85 }
+            { name: "Splunk & ELK Stack", level: 90 },
+            { name: "Burp Suite & Nessus", level: 92 },
+            { name: "Wireshark & tcpdump", level: 94 },
+            { name: "Nmap & Suricata", level: 90 },
         ]
     },
     {
-        category: "Scripting & Automation",
+        category: "Scripting & Systems",
         icon: Code,
         items: [
             { name: "Python & Bash", level: 92 },
-            { name: "PowerShell & CLI", level: 88 },
-            { name: "OS Security (Linux/Win/Mac)", level: 90 },
-            { name: "Security Automation (SOAR)", level: 86 },
-            { name: "Yara Rules", level: 84 }
+            { name: "PowerShell", level: 88 },
+            { name: "Linux Administration", level: 90 },
+            { name: "Windows & macOS", level: 88 },
+            { name: "YARA Rules", level: 85 }
         ]
     },
     {
-        category: "Risk & Vulnerability Mgmt",
+        category: "Security Operations",
         icon: Shield,
         items: [
-            { name: "Penetration Testing", level: 95 },
-            { name: "Vulnerability Scanning", level: 92 },
-            { name: "Risk Management", level: 89 },
-            { name: "Compliance (NIST/ISO/GDPR)", level: 85 }
+            { name: "Log Monitoring & Alert Triage", level: 90 },
+            { name: "Incident Response", level: 88 },
+            { name: "Vulnerability Assessment", level: 92 },
+            { name: "Risk Management", level: 89 }
+        ]
+    },
+    {
+        category: "OT & Critical Infrastructure",
+        icon: Server,
+        items: [
+            { name: "ICS & SCADA Awareness", level: 85 },
+            { name: "OT Security Fundamentals", level: 86 },
+            { name: "Network Segmentation", level: 84 },
+            { name: "Asset Visibility", level: 82 }
+        ]
+    },
+    {
+        category: "Security GRC",
+        icon: FileCheck,
+        items: [
+            { name: "Risk Assessments", level: 88 },
+            { name: "Security Policy Drafting", level: 86 },
+            { name: "Control Mapping", level: 85 },
+            { name: "Audit Evidence Support", level: 84 }
+        ]
+    },
+    {
+        category: "Frameworks & Standards",
+        icon: Lock,
+        items: [
+            { name: "NIST CSF", level: 90 },
+            { name: "ISO 27001", level: 88 },
+            { name: "PCI DSS & HIPAA", level: 86 },
+            { name: "GDPR & OWASP Top 10", level: 85 }
         ]
     }
 ];
 
 const certifications = [
-    "CISSP (Pursuing)",
-    "CompTIA Security+ (Pursuing)",
-    "Google Bits & Bytes of Computer Networks"
+    "CISSP (Candidate)",
+    "CompTIA Security+ (Candidate)",
+    "Google Bits and Bytes of Computer Networking"
 ];
 
 export default function SkillsSection() {
@@ -59,38 +88,38 @@ export default function SkillsSection() {
                     <span className="text-cyber-green">{">"}</span> CYBER_ARSENAL
                 </motion.h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                     {skills.map((skillGroup, groupIndex) => (
                         <motion.div
                             key={skillGroup.category}
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: groupIndex * 0.2 }}
+                            transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
                             viewport={{ once: true }}
-                            className="border border-cyber-green/30 rounded-lg p-6 bg-cyber-gray/10 backdrop-blur-sm hover:border-cyber-green/60 transition-colors"
+                            className="border border-cyber-green/30 rounded-lg p-5 bg-cyber-gray/10 backdrop-blur-sm hover:border-cyber-green/60 transition-colors"
                         >
-                            <div className="flex items-center gap-3 mb-6">
-                                <skillGroup.icon className="w-6 h-6 text-cyber-green" />
-                                <h3 className="text-xl font-bold text-cyber-neon font-mono">
+                            <div className="flex items-center gap-3 mb-5">
+                                <skillGroup.icon className="w-5 h-5 text-cyber-green" />
+                                <h3 className="text-lg font-bold text-cyber-neon font-mono">
                                     {skillGroup.category}
                                 </h3>
                             </div>
 
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {skillGroup.items.map((skill, skillIndex) => (
                                     <div key={skill.name}>
-                                        <div className="flex justify-between items-center mb-2">
-                                            <span className="text-sm text-gray-300 font-mono">{skill.name}</span>
+                                        <div className="flex justify-between items-center mb-1.5">
+                                            <span className="text-xs text-gray-300 font-mono">{skill.name}</span>
                                             <span className="text-xs text-cyber-green font-mono">{skill.level}%</span>
                                         </div>
-                                        <div className="h-2 bg-cyber-gray/30 rounded-full overflow-hidden">
+                                        <div className="h-1.5 bg-cyber-gray/30 rounded-full overflow-hidden">
                                             <motion.div
                                                 className="h-full bg-gradient-to-r from-cyber-green to-cyber-neon relative"
                                                 initial={{ width: 0 }}
                                                 whileInView={{ width: `${skill.level}%` }}
                                                 transition={{
                                                     duration: 1,
-                                                    delay: groupIndex * 0.2 + skillIndex * 0.1,
+                                                    delay: groupIndex * 0.1 + skillIndex * 0.05,
                                                     ease: "easeOut"
                                                 }}
                                                 viewport={{ once: true }}

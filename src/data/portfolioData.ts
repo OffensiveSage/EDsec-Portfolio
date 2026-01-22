@@ -1,35 +1,31 @@
 export const experiences = [
     {
         id: 1,
-        role: "Technology Lead",
-        company: "Payme Fintech Solutions - Credxo",
-        period: "09/2024 - 07/2025",
-        description: "Spearheaded security operations for 5,000+ transactions and integrated security best practices into SDLC, reducing critical vulnerabilities by 20%. Developed threat intelligence reports.",
-        tech: ["Security Operations", "SDLC", "Threat Intelligence"]
+        role: "Project Management Officer",
+        company: "CredXO",
+        period: "06/2024 - 06/2025",
+        description: "Coordinated engineering workflows for 12-15 member development team at blockchain-based fintech startup. Enforced security and operational policies including repository access controls and confidential data handling protocols. Supported Shark Tank INDIA pitch preparation.",
+        tech: ["Project Management", "Security Policies", "Blockchain", "Fintech"]
     },
     {
         id: 2,
-        role: "Project Management Officer",
-        company: "Payme Fintech Solutions - Credxo",
-        period: "06/2024 - 08/2024",
-        description: "Developed project management dashboards and executed critical documentation policies. Directed internal phishing simulations across 32 users.",
-        tech: ["Project Management", "Compliance", "Phishing Simulation"]
-    },
-    {
-        id: 3,
         role: "Cybersecurity Analyst Intern",
         company: "Hacker Bro Technologies",
         period: "06/2023 - 08/2023",
-        description: "Refined SIEM correlation rules to reduce false positives by 15%. Streamlined incident reporting processes for management.",
-        tech: ["SIEM", "Incident Response", "Event Correlation"]
-    },
+        description: "Completed intensive training in incident response, vulnerability assessment and security event monitoring using SIEM platforms. Practiced penetration testing techniques including network reconnaissance with Nmap, packet analysis using Wireshark and web application security testing with Burp Suite.",
+        tech: ["SIEM", "Penetration Testing", "Nmap", "Wireshark", "Burp Suite"]
+    }
+];
+
+export const articles = [
     {
-        id: 4,
-        role: "Internship Trainee",
-        company: "BSNL LTD",
-        period: "11/2023 - 12/2023",
-        description: "Completed training at The Regional Telecom Trainee Center. Gained in-depth knowledge of 4G/5G communications, network architecture, and telecommunication systems.",
-        tech: ["4G/5G Networks", "Telecommunications", "Network Architecture"]
+        id: 1,
+        title: "Breaking Things Legally: TryHackMe Advent of Cyber",
+        description: "My journey through TryHackMe's Advent of Cyber challenge - exploring ethical hacking, penetration testing techniques, and hands-on cybersecurity learning.",
+        date: "2024",
+        platform: "Medium",
+        tags: ["TryHackMe", "Ethical Hacking", "CTF", "Cybersecurity"],
+        link: "https://medium.com/@eshwar.desetty03/breaking-things-legally-tryhackme-advent-of-cyber-77a093f73578"
     }
 ];
 
@@ -37,41 +33,41 @@ export const projects = [
     {
         id: 1,
         title: "SimplySecure",
-        description: "Comprehensive macOS security application with real-time permission monitoring, automated vulnerability scanning, and AI-powered threat analysis using Gemini and Perplexity APIs.",
-        tech: ["SwiftUI", "Gemini API", "Retell AI"],
+        description: "Built a macOS security prototype in SwiftUI with real-time app permission monitoring and security posture checks for FileVault status, OS updates and browser security. Integrated Google Gemini API for automated privacy policy risk analysis and Retell AI for voice phishing simulation.",
+        tech: ["SwiftUI", "Gemini API", "Retell AI", "macOS Security"],
         links: { github: "https://github.com/OffensiveSage/SimplySecure", demo: "#" }
     },
     {
         id: 2,
-        title: "Energy Sector Threat Intel",
-        description: "Comprehensive threat analysis for Fortune 500 energy company. Mapped threat actors using MITRE ATT&CK and identified attack surfaces across SCADA/OT systems.",
-        tech: ["MITRE ATT&CK", "OSINT", "SCADA Security"],
+        title: "Cyber Threat Intelligence - Energy Sector",
+        description: "Comprehensive threat analysis for Fortune 500 critical infrastructure company. Developed 6 Priority Intelligence Requirements (PIRs) and mapped threat actors using MITRE ATT&CK. Architected threat intelligence fusion center with $1.3M annual operational budget.",
+        tech: ["MITRE ATT&CK", "OSINT", "SCADA/OT Security", "Threat Intelligence"],
         links: { github: "#", demo: "" }
     },
     {
         id: 3,
-        title: "LLM Observability Audit",
-        description: "Auditable AI pipeline using Llama 3 and Arize Phoenix for model observability, telemetry, and decision transparency. Implemented forensic 'flight recorder' using OpenTelemetry.",
-        tech: ["Llama 3", "Arize Phoenix", "OpenTelemetry", "Python"],
-        links: { github: "https://github.com/OffensiveSage/LLM-Observability-Audit", demo: "" }
+        title: "AI Security Research",
+        description: "Developed machine learning-based threat detection framework for real-time detection, isolation and remediation of prompt injection vulnerabilities in LLMs. Validated attack mitigation controls across multiple AI platforms through adversarial testing and threat modeling.",
+        tech: ["Machine Learning", "LLM Security", "Threat Modeling", "Adversarial Testing"],
+        links: { github: "#", demo: "" }
     }
 ];
 
 export const education = [
     {
         id: 1,
-        degree: "Masters in Information Security",
+        degree: "Master of Science in Information Security Policy and Management",
         school: "Carnegie Mellon University",
-        period: "2025 - 2027",
-        description: "Advanced studies in Information Security Policy and Management.",
-        achievements: ["Scholarship Recipient"]
+        period: "Expected 05/2027",
+        description: "Advanced studies in Information Security Policy and Management at Pittsburgh, PA.",
+        achievements: ["Information Security Focus", "Policy & Management"]
     },
     {
         id: 2,
-        degree: "B.Tech in Computer Science",
+        degree: "Bachelor of Science in Computer Science",
         school: "Vellore Institute of Technology",
-        period: "2021 - 2025",
-        description: "Specialization in Cybersecurity and Digital Forensics.",
+        period: "08/2021 - 08/2025",
+        description: "Specialization in Cybersecurity and Digital Forensics at Bhopal, Madhya Pradesh, India.",
         achievements: ["Cybersecurity Specialization", "Digital Forensics Focus"]
     }
 ];
