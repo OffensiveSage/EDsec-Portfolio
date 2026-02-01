@@ -13,16 +13,19 @@ Bachelor of Science in Computer Science specialization in Cybersecurity and Digi
 
 ## SKILLS & CERTIFICATIONS
 
-- **OT & Critical Infrastructure:** ICS and SCADA awareness, OT security fundamentals, segmentation concepts, asset visibility
-- **Security GRC:** Risk assessments, risk register, security policy and standards drafting, control mapping, audit evidence support
-- **Risk and Vulnerability Management:** Cybersecurity maturity evaluation, risk management, vulnerability assessment
-- **Security Operations:** Log monitoring, alert triage, incident reporting, incident response workflows
 - **Frameworks and Standards:** NIST CSF, PCI DSS, HIPAA, ISO 27001, GDPR, OWASP Top 10
-- **Security Tools:** Splunk, ELK Stack, Nessus, Burp Suite, Nmap, Wireshark, tcpdump, Suricata
+- **Security Tools:** Splunk, ELK Stack, Nessus, Burp Suite, Nmap, Wireshark, tcpdump, Suricata, Metasploit
 - **Scripting and Systems:** Python, Bash, PowerShell, Linux, Windows, macOS, YARA
-- **Certifications:** CISSP candidate, CompTIA Security+ candidate, Google Bits and Bytes of Computer Networking
+- **Collaboration Tools:** MS 365 Suite (Excel, PowerPoint, Word), SharePoint
+- **Certifications:** CISSP (pursuing), CompTIA Security+ (pursuing), Google Bits and Bytes of Computer Networking
 
 ## EXPERIENCE
+
+**Carnegie Mellon University, Pittsburgh, PA**
+Graduate Teaching Assistant - Managing Products and Brands
+01/2026 - Present
+- Host weekly office hours and manage Canvas LMS including grading and course administration for 40+ graduate students
+- Provide technical guidance on product management projects and contribute to course improvement initiatives
 
 **CredXO, Delhi, India**
 Project Management Officer
@@ -40,21 +43,22 @@ Cybersecurity Analyst Intern
 - Practiced penetration testing techniques including network reconnaissance with Nmap, packet analysis using Wireshark and web application security testing with Burp Suite
 - Studied security frameworks including NIST and ISO 27001, along with compliance standards such as HIPAA, GDPR and PCI-DSS through case study analysis and documentation
 
-## ACADEMIC PROJECTS
+## PROJECTS
+
+**Change Healthcare Ransomware Attack**
+10/2025 - 11/2025
+- Analyzed $2.3B ransomware attack affecting 15 billion healthcare transactions, identifying MFA absence as root cause and developing threat intelligence report with HIPAA-aligned zero-trust and incident response recommendations
 
 **SimplySecure**
 10/2025 - 12/2025
-- Built a macOS security prototype in SwiftUI with real time app permission monitoring and security posture checks for fireVault status, OS update status and browser security settings and integrated Google Gemini API for automated privacy policy risk analysis
-- Implemented a voice phishing simulation module using Retell AI for security awareness training, generating call scenarios with transcription and basic sentiment signals for review
+- Developed macOS security application using SwiftUI with real-time app permission monitoring, encryption status validation, vulnerability assessment via API for privacy policy risk analysis, and AI-powered phishing simulation for security awareness
 
 **Cyber Threat Intelligence Analysis-Fortune 500 Energy Sector**
 08/2025 - 09/2025
-- Computed comprehensive threat analysis for Fortune 500 critical infrastructure company, developing 6 Priority Intelligence Requirements (PIRs) and mapping threat actors using MITRE ATT&CK framework
-- Performed multi-phase OSINT gathering utilizing CVE and NVD databases, E-ISAC advisories and vendor intelligence feeds to identify attack surface across SCADA/OT systems and smart grid infrastructure
-- Architected threat intelligence fusion center with 11 specialized roles, defining SOC workflows for real-time monitoring, incident response and strategic threat analysis with $1.3M annual operational budget
+- Simulated adversary behavior on HQ of a Fortune 500 energy company, conducted OSINT to identify vulnerabilities and phishing opportunities, documented threat actors, and reported findings from various stages of the Cyber Kill Chain with recommendations
 
 ## RESEARCH
 
 **AI Security Research (under review)**
 01/2024 - 05/2024
-- Developed machine learning-based threat detection framework for real-time detection, isolation and remediation of prompt injection vulnerabilities in LLMs, validating attack mitigation controls across multiple AI platforms through adversarial testing and threat modeling
+- Developed machine learning threat detection framework for real-time detection, isolation, and remediation of prompt injection vulnerabilities in LLMs, validating attack mitigation controls through adversarial testing and threat modeling

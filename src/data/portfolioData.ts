@@ -1,6 +1,14 @@
 export const experiences = [
     {
         id: 1,
+        role: "Graduate Teaching Assistant",
+        company: "Carnegie Mellon University",
+        period: "01/2026 - Present",
+        description: "Host weekly office hours and manage Canvas LMS including grading and course administration for 40+ graduate students. Provide technical guidance on product management projects and contribute to course improvement initiatives.",
+        tech: ["Teaching", "Canvas LMS", "Product Management", "Course Administration"]
+    },
+    {
+        id: 2,
         role: "Project Management Officer",
         company: "CredXO",
         period: "06/2024 - 06/2025",
@@ -8,7 +16,7 @@ export const experiences = [
         tech: ["Project Management", "Security Policies", "Blockchain", "Fintech"]
     },
     {
-        id: 2,
+        id: 3,
         role: "Cybersecurity Analyst Intern",
         company: "Hacker Bro Technologies",
         period: "06/2023 - 08/2023",
@@ -32,22 +40,29 @@ export const articles = [
 export const projects = [
     {
         id: 1,
-        title: "SimplySecure",
-        description: "Built a macOS security prototype in SwiftUI with real-time app permission monitoring and security posture checks for FileVault status, OS updates and browser security. Integrated Google Gemini API for automated privacy policy risk analysis and Retell AI for voice phishing simulation.",
-        tech: ["SwiftUI", "Gemini API", "Retell AI", "macOS Security"],
-        links: { github: "https://github.com/OffensiveSage/SimplySecure", demo: "#" }
-    },
-    {
-        id: 2,
-        title: "Cyber Threat Intelligence - Energy Sector",
-        description: "Comprehensive threat analysis for Fortune 500 critical infrastructure company. Developed 6 Priority Intelligence Requirements (PIRs) and mapped threat actors using MITRE ATT&CK. Architected threat intelligence fusion center with $1.3M annual operational budget.",
-        tech: ["MITRE ATT&CK", "OSINT", "SCADA/OT Security", "Threat Intelligence"],
+        title: "Change Healthcare Ransomware Attack",
+        description: "Analyzed $2.3B ransomware attack affecting 15 billion healthcare transactions, identifying MFA absence as root cause and developing threat intelligence report with HIPAA-aligned zero-trust and incident response recommendations.",
+        tech: ["Threat Intelligence", "HIPAA", "Zero-Trust", "Incident Response"],
         links: { github: "#", demo: "" }
     },
     {
+        id: 2,
+        title: "SimplySecure",
+        description: "Developed macOS security application using SwiftUI with real-time app permission monitoring, encryption status validation, vulnerability assessment via API for privacy policy risk analysis, and AI-powered phishing simulation for security awareness.",
+        tech: ["SwiftUI", "macOS Security", "API Integration", "AI Phishing Simulation"],
+        links: { github: "https://github.com/OffensiveSage/SimplySecure", demo: "#" }
+    },
+    {
         id: 3,
+        title: "Cyber Threat Intelligence - Energy Sector",
+        description: "Simulated adversary behavior on HQ of a Fortune 500 energy company, conducted OSINT to identify vulnerabilities and phishing opportunities, documented threat actors, and reported findings from various stages of the Cyber Kill Chain with recommendations.",
+        tech: ["OSINT", "Cyber Kill Chain", "Threat Intelligence", "Adversary Simulation"],
+        links: { github: "#", demo: "" }
+    },
+    {
+        id: 4,
         title: "AI Security Research",
-        description: "Developed machine learning-based threat detection framework for real-time detection, isolation and remediation of prompt injection vulnerabilities in LLMs. Validated attack mitigation controls across multiple AI platforms through adversarial testing and threat modeling.",
+        description: "Developed machine learning threat detection framework for real-time detection, isolation, and remediation of prompt injection vulnerabilities in LLMs, validating attack mitigation controls through adversarial testing and threat modeling.",
         tech: ["Machine Learning", "LLM Security", "Threat Modeling", "Adversarial Testing"],
         links: { github: "#", demo: "" }
     }
