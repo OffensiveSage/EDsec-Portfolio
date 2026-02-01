@@ -1,7 +1,7 @@
 export const experiences = [
     {
         id: 1,
-        role: "ISPM Student Representative",
+        role: "CMU Student Representative - ISPM",
         company: "Carnegie Mellon University",
         period: "01/2026 - Fall 2026",
         description: "Selected as Student Representative for the ISPM cohort at Heinz College. Gather feedback from students, help shape events and programming, and support connection within the cohort to enhance the student experience.",
