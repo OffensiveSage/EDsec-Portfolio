@@ -1,6 +1,14 @@
 export const experiences = [
     {
         id: 1,
+        role: "ISPM Student Representative",
+        company: "Carnegie Mellon University",
+        period: "01/2026 - Fall 2026",
+        description: "Selected as Student Representative for the ISPM cohort at Heinz College. Gather feedback from students, help shape events and programming, and support connection within the cohort to enhance the student experience.",
+        tech: ["Leadership", "Student Advocacy", "Event Planning", "Community Building"]
+    },
+    {
+        id: 2,
         role: "Graduate Teaching Assistant",
         company: "Carnegie Mellon University",
         period: "01/2026 - Present",
@@ -8,7 +16,7 @@ export const experiences = [
         tech: ["Teaching", "Canvas LMS", "Product Management", "Course Administration"]
     },
     {
-        id: 2,
+        id: 3,
         role: "Project Management Officer",
         company: "CredXO",
         period: "06/2024 - 06/2025",
@@ -16,7 +24,7 @@ export const experiences = [
         tech: ["Project Management", "Security Policies", "Blockchain", "Fintech"]
     },
     {
-        id: 3,
+        id: 4,
         role: "Cybersecurity Analyst Intern",
         company: "Hacker Bro Technologies",
         period: "06/2023 - 08/2023",
