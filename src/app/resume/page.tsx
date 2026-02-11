@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, Printer, Download } from "lucide-react";
+import { ArrowLeft, Download } from "lucide-react";
 import Link from "next/link";
 import { experiences, projects } from "@/data/portfolioData";
 
@@ -13,23 +13,15 @@ export default function ResumePage() {
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                     RETURN_TO_BASE
                 </Link>
-                <div className="flex items-center gap-3">
-                    <a
-                        href="/resume.pdf"
-                        download="Eshwar_Desetty_Resume.pdf"
-                        className="flex items-center gap-2 border border-cyber-green text-cyber-green px-4 py-2 rounded text-sm hover:bg-cyber-green hover:text-black transition-all hover:box-glow"
-                    >
-                        <Download className="w-4 h-4" />
-                        DOWNLOAD_RESUME
-                    </a>
-                    <button
-                        onClick={() => window.print()}
-                        className="flex items-center gap-2 border border-cyber-neon text-cyber-neon px-4 py-2 rounded text-sm hover:bg-cyber-neon hover:text-black transition-all"
-                    >
-                        <Printer className="w-4 h-4" />
-                        PRINT_PDF
-                    </button>
-                </div>
+                <a
+                    href="/resume.pdf"
+                    download="Eshwar_Desetty_Resume.pdf"
+                    className="flex items-center gap-2 border border-cyber-green text-cyber-green px-6 py-3 rounded text-sm font-bold hover:bg-cyber-green hover:text-black transition-all hover:box-glow touch-manipulation"
+                    style={{ minHeight: '44px' }}
+                >
+                    <Download className="w-5 h-5" />
+                    DOWNLOAD_RESUME
+                </a>
             </div>
 
             <div className="max-w-4xl mx-auto mt-20 print:mt-0 print:text-black">
