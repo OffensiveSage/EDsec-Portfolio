@@ -48,31 +48,45 @@ export const articles = [
 export const projects = [
     {
         id: 1,
+        title: "XRPL Guardrails",
+        description: "Engineered a TypeScript wrapper and preflight system for XRP Ledger transactions, enforcing dependency pinning, SHA-256 lockfile integrity checks, and npm audit policies to block critical vulnerabilities before sensitive blockchain actions execute.",
+        tech: ["TypeScript", "XRP Ledger", "Supply Chain Security", "npm audit", "SHA-256"],
+        links: { github: "https://github.com/OffensiveSage/xrpl-guardrails", demo: "" }
+    },
+    {
+        id: 2,
         title: "Change Healthcare Ransomware Attack",
         description: "Analyzed $2.3B ransomware attack affecting 15 billion healthcare transactions, identifying MFA absence as root cause and developing threat intelligence report with HIPAA-aligned zero-trust and incident response recommendations.",
         tech: ["Threat Intelligence", "HIPAA", "Zero-Trust", "Incident Response"],
         links: { github: "#", demo: "" }
     },
     {
-        id: 2,
+        id: 3,
         title: "SimplySecure",
         description: "Developed macOS security application using SwiftUI with real-time app permission monitoring, encryption status validation, vulnerability assessment via API for privacy policy risk analysis, and AI-powered phishing simulation for security awareness.",
         tech: ["SwiftUI", "macOS Security", "API Integration", "AI Phishing Simulation"],
         links: { github: "https://github.com/OffensiveSage/SimplySecure", demo: "#" }
     },
     {
-        id: 3,
+        id: 4,
         title: "Cyber Threat Intelligence - Energy Sector",
         description: "Simulated adversary behavior on HQ of a Fortune 500 energy company, conducted OSINT to identify vulnerabilities and phishing opportunities, documented threat actors, and reported findings from various stages of the Cyber Kill Chain with recommendations.",
         tech: ["OSINT", "Cyber Kill Chain", "Threat Intelligence", "Adversary Simulation"],
         links: { github: "#", demo: "" }
     },
     {
-        id: 4,
+        id: 5,
         title: "AI Security Research",
         description: "Developed machine learning threat detection framework for real-time detection, isolation, and remediation of prompt injection vulnerabilities in LLMs, validating attack mitigation controls through adversarial testing and threat modeling.",
         tech: ["Machine Learning", "LLM Security", "Threat Modeling", "Adversarial Testing"],
         links: { github: "#", demo: "" }
+    },
+    {
+        id: 6,
+        title: "LLM Observability Audit",
+        description: "Auditable AI pipeline using Llama 3 and Arize Phoenix for model observability, telemetry, and decision transparency. Implemented forensic 'flight recorder' using OpenTelemetry.",
+        tech: ["Llama 3", "Arize Phoenix", "OpenTelemetry", "Python"],
+        links: { github: "https://github.com/OffensiveSage/LLM-Observability-Audit", demo: "" }
     }
 ];
 
