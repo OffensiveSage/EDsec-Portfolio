@@ -20,8 +20,8 @@ export default function Navbar() {
         { label: "IDENTITY", href: "#about" },
         { label: "ACADEMICS", href: "#education" },
         { label: "ARSENAL", href: "#skills" },
-        { label: "LOGS", href: "#experience" },
-        { label: "CASE_FILES", href: "#projects" },
+        { label: "EXPERIENCE", href: "#experience" },
+        { label: "PROJECTS", href: "#projects" },
         { label: "ARTICLES", href: "#articles" },
         { label: "CONTACT", href: "#contact" },
     ];
