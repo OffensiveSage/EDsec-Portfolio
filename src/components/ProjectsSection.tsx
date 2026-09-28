@@ -1,170 +1,101 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Folder, Github, ExternalLink, Terminal, Code, Shield } from "lucide-react";
-import { projects } from "@/data/portfolioData";
+import { ArrowUpRight, Github, Plus } from "lucide-react";
+import { articles, projects } from "@/data/portfolioData";
+import SectionHeader from "./SectionHeader";
 
+// Each project reads like a story teaser: tag, title, one-line outcome, expandable detail.
 export default function ProjectsSection() {
-    const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set());
-    const [deniedId, setDeniedId] = useState<number | null>(null);
-
-    const toggleFlip = (id: number) => {
-        setFlippedCards((prev) => {
-            const newSet = new Set(prev);
-            if (newSet.has(id)) {
-                newSet.delete(id);
-            } else {
-                newSet.add(id);
-            }
-            return newSet;
-        });
-    };
+    const [open, setOpen] = useState<number | null>(null);
 
     return (
-        <section id="projects" className="min-h-screen flex items-center snap-start relative z-10 bg-cyber-black">
-            <div className="container mx-auto px-4 py-20">
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                >
-                    <h2 className="text-3xl md:text-4xl font-bold font-mono text-cyber-neon mb-12 flex items-center gap-3">
-                        <Folder className="w-8 h-8 text-cyber-green" />
-                        <span className="text-cyber-green">{">"}</span> CASE_FILES
-                    </h2>
+        <section id="work" className="px-4 sm:px-6 py-16 md:py-24 border-t border-line">
+            <SectionHeader tag="Selected work" title="Projects & case studies" />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {projects.map((project) => (
-                            <div
-                                key={project.id}
-                                className="perspective-1000 h-80"
-                                onClick={() => toggleFlip(project.id)}
+            <ul className="border-t border-line">
+                {projects.map((p, i) => {
+                    const isOpen = open === p.id;
+                    const hasRepo = p.links.github && p.links.github !== "#";
+                    return (
+                        <li key={p.id} className="border-b border-line">
+                            <button
+                                onClick={() => setOpen(isOpen ? null : p.id)}
+                                aria-expanded={isOpen}
+                                className="w-full text-left py-6 md:py-8 grid gap-3 md:grid-cols-[minmax(0,5fr)_minmax(0,9fr)] items-start group"
                             >
-                                <motion.div
-                                    className="relative w-full h-full cursor-pointer preserve-3d"
-                                    animate={{ rotateY: flippedCards.has(project.id) ? 180 : 0 }}
-                                    transition={{ duration: 0.6 }}
-                                    style={{ transformStyle: "preserve-3d" }}
-                                >
-                                    {/* Front of card */}
-                                    <div
-                                        className="absolute inset-0 backface-hidden border border-cyber-gray/30 bg-cyber-gray/10 p-6 rounded hover:bg-cyber-gray/20 transition-all overflow-hidden"
-                                        style={{ backfaceVisibility: "hidden" }}
-                                    >
-                                        <div className="absolute inset-0 bg-cyber-green/5 opacity-0 hover:opacity-100 transition-opacity pointer-events-none" />
+                                <span className="flex items-center gap-3 text-sm text-muted">
+                                    <span className="tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                                    <span className="rounded-full bg-tag text-tag-ink px-3 py-1 font-medium">{p.category}</span>
+                                </span>
+                                <span className="flex gap-6 items-start">
+                                    <span className="flex-1">
+                                        <span className="block font-display text-2xl sm:text-3xl font-medium tracking-tight group-hover:opacity-70 transition">
+                                            {p.title}
+                                        </span>
+                                        <span className="block mt-2 text-muted text-lg">{p.summary}</span>
+                                    </span>
+                                    <Plus
+                                        className={`w-6 h-6 mt-1 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+                                    />
+                                </span>
+                            </button>
 
-                                        <div className="flex justify-between items-start mb-4">
-                                            <Terminal className="w-8 h-8 text-cyber-gray group-hover:text-cyber-green transition-colors" />
-                                            <div className="flex gap-3">
+                            <div
+                                className={`grid transition-[grid-template-rows] duration-300 ease-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                            >
+                                <div className="overflow-hidden">
+                                    <div className="pb-8 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,9fr)]">
+                                        <div />
+                                        <div className="max-w-2xl">
+                                            <p className="leading-relaxed">{p.description}</p>
+                                            <div className="mt-4 flex flex-wrap gap-2">
+                                                {p.tech.map((t) => (
+                                                    <span key={t} className="rounded-full bg-surface px-3 py-1 text-sm">{t}</span>
+                                                ))}
+                                            </div>
+                                            {hasRepo && (
                                                 <a
-                                                    href={project.links.github}
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    className="text-gray-400 hover:text-white transition-colors"
+                                                    href={p.links.github}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="mt-5 inline-flex items-center gap-2 font-medium link-underline"
                                                 >
-                                                    <Github className="w-5 h-5" />
-                                                </a>
-                                                {project.links.demo && (
-                                                    <a
-                                                        href={project.links.demo}
-                                                        onClick={(e) => e.stopPropagation()}
-                                                        className="text-gray-400 hover:text-white transition-colors"
-                                                    >
-                                                        <ExternalLink className="w-5 h-5" />
-                                                    </a>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        <h3 className="text-xl font-bold text-white font-mono mb-2 group-hover:text-cyber-neon transition-colors">
-                                            {project.title}
-                                        </h3>
-
-                                        <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                                            {project.description}
-                                        </p>
-
-                                        <div className="flex flex-wrap gap-2 mt-auto">
-                                            {project.tech.map((t) => (
-                                                <span key={t} className="text-xs font-mono text-cyber-green/80">
-                                                    #{t}
-                                                </span>
-                                            ))}
-                                        </div>
-
-                                        <div className="absolute bottom-4 right-4 text-xs text-cyber-green/50 font-mono">
-                                            Click to flip →
-                                        </div>
-                                    </div>
-
-                                    {/* Back of card */}
-                                    <div
-                                        className="absolute inset-0 backface-hidden border border-cyber-neon bg-cyber-black p-6 rounded flex flex-col justify-center items-center text-center"
-                                        style={{
-                                            backfaceVisibility: "hidden",
-                                            transform: "rotateY(180deg)"
-                                        }}
-                                    >
-                                        <Shield className="w-16 h-16 text-cyber-neon mb-4 animate-pulse" />
-                                        <h3 className="text-2xl font-bold text-cyber-neon mb-4 font-mono">
-                                            {project.title}
-                                        </h3>
-                                        <div className="space-y-3 text-left w-full">
-                                            <div className="flex items-start gap-2">
-                                                <Code className="w-4 h-4 text-cyber-green mt-1 flex-shrink-0" />
-                                                <div>
-                                                    <p className="text-xs text-gray-400 font-mono">TECH_STACK</p>
-                                                    <p className="text-sm text-white">{project.tech.join(", ")}</p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-start gap-2">
-                                                <Terminal className="w-4 h-4 text-cyber-green mt-1 flex-shrink-0" />
-                                                <div>
-                                                    <p className="text-xs text-gray-400 font-mono">STATUS</p>
-                                                    <p className="text-sm text-cyber-green">OPERATIONAL</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="mt-6 flex gap-4">
-                                            <button
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    if (project.title === "Energy Sector Threat Intel") {
-                                                        e.preventDefault();
-                                                        setDeniedId(project.id);
-                                                        setTimeout(() => setDeniedId(null), 3000);
-                                                    } else {
-                                                        window.open(project.links.github, "_blank");
-                                                    }
-                                                }}
-                                                className={`px-4 py-2 border text-xs font-mono transition-all rounded ${deniedId === project.id
-                                                    ? "border-red-500 text-red-500 bg-red-500/10"
-                                                    : "border-cyber-green text-cyber-green hover:bg-cyber-green hover:text-black"
-                                                    }`}
-                                            >
-                                                {deniedId === project.id ? "ACCESS_DENIED" : "VIEW_CODE"}
-                                            </button>
-                                            {project.links.demo && (
-                                                <a
-                                                    href={project.links.demo}
-                                                    onClick={(e) => e.stopPropagation()}
-                                                    className="px-4 py-2 bg-cyber-neon text-black text-xs font-mono hover:bg-white transition-all rounded"
-                                                >
-                                                    LIVE_DEMO
+                                                    <Github className="w-4 h-4" /> View on GitHub
                                                 </a>
                                             )}
                                         </div>
-                                        <div className="absolute bottom-4 right-4 text-xs text-cyber-green/50 font-mono">
-                                            ← Click to flip back
-                                        </div>
                                     </div>
-                                </motion.div>
+                                </div>
                             </div>
+                        </li>
+                    );
+                })}
+            </ul>
+
+            {articles.length > 0 && (
+                <div className="mt-16">
+                    <h3 className="font-display text-xl sm:text-2xl font-medium tracking-tight mb-6">Writing</h3>
+                    <div className="grid gap-4 md:grid-cols-2">
+                        {articles.map((a) => (
+                            <a
+                                key={a.id}
+                                href={a.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group rounded-3xl bg-card text-card-ink p-6 sm:p-8 flex flex-col gap-6 hover:-translate-y-0.5 transition"
+                            >
+                                <span className="flex justify-between text-sm text-card-muted">
+                                    {a.platform} · {a.date}
+                                    <ArrowUpRight className="w-5 h-5 text-card-ink group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                                </span>
+                                <span className="font-display text-2xl font-medium tracking-tight">{a.title}</span>
+                                <span className="text-card-muted">{a.description}</span>
+                            </a>
                         ))}
                     </div>
-                </motion.div>
-            </div>
+                </div>
+            )}
         </section>
     );
 }

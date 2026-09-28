@@ -1,25 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Mono } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
+const body = Inter({
   subsets: ["latin"],
-  variable: "--font-space-mono",
+  variable: "--font-body",
+});
+
+const display = Inter_Tight({
+  weight: ["500", "600"],
+  subsets: ["latin"],
+  variable: "--font-tight",
 });
 
 export const metadata: Metadata = {
-  title: "Eshwar Desetty | Cyber Security Portfolio",
-  description: "Portfolio of Eshwar Desetty - Cyber Security Specialist",
+  title: "Eshwar Desetty | Security Strategy & GRC",
+  description:
+    "Eshwar Desetty — security strategy, GRC and AI risk. MS in Information Security Policy & Management at Carnegie Mellon University.",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-  themeColor: "#050505",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
+  ],
 };
 
 export default function RootLayout({
@@ -29,10 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${spaceMono.variable} antialiased bg-black text-white overflow-hidden touch-pan-y`}
-        style={{ WebkitOverflowScrolling: 'touch' }}
-      >
+      <body className={`${body.variable} ${display.variable} antialiased`}>
         {children}
         <Analytics />
       </body>

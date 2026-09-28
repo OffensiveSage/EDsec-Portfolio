@@ -1,146 +1,82 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050505;
-  --foreground: #ededed;
+  --bg: #ffffff;
+  --ink: #000000;
+  --muted: #5e5e5e;
+  --line: #e8e8e8;
+  --surface: #f3f3f3;
+  --card: #000000;
+  --card-ink: #ffffff;
+  --card-muted: #a6a6a6;
+  --accent: #34c26e;
+  --accent-ink: #000000;
+  --tag: #d3ebf7;
+  --tag-ink: #0b3a52;
+}
 
-  /* Cyber Palette */
-  --cyber-black: #050505;
-  --cyber-dark: #0a0a0a;
-  --cyber-gray: #1a1a1a;
-  --cyber-green: #00ff41;
-  --cyber-neon: #00f3ff;
-  --cyber-purple: #bc13fe;
-  --cyber-red: #ff003c;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0b0b;
+    --ink: #f5f5f5;
+    --muted: #a0a0a0;
+    --line: #262626;
+    --surface: #161616;
+    --card: #1c1c1c;
+    --card-ink: #ffffff;
+    --card-muted: #a0a0a0;
+    --tag: #16323f;
+    --tag-ink: #cdeaf7;
+  }
 }
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-card-ink: var(--card-ink);
+  --color-card-muted: var(--card-muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-tag: var(--tag);
+  --color-tag-ink: var(--tag-ink);
 
-  --color-cyber-black: var(--cyber-black);
-  --color-cyber-dark: var(--cyber-dark);
-  --color-cyber-gray: var(--cyber-gray);
-  --color-cyber-green: var(--cyber-green);
-  --color-cyber-neon: var(--cyber-neon);
-  --color-cyber-purple: var(--cyber-purple);
-  --color-cyber-red: var(--cyber-red);
+  --font-sans: var(--font-body), system-ui, arial, sans-serif;
+  --font-display: var(--font-tight), var(--font-body), system-ui, sans-serif;
+}
 
-  --font-mono: var(--font-space-mono);
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 48px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-space-mono), monospace;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
-::-webkit-scrollbar-track {
-  background: var(--cyber-black);
+/* Underlined text link, like the "Back to people stories" link */
+.link-underline {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+.link-underline:hover {
+  opacity: 0.6;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--cyber-gray);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--cyber-green);
-}
-
-/* Utilities */
-.text-glow {
-  text-shadow: 0 0 10px currentColor;
-}
-
-.box-glow {
-  box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-}
-
-/* 3D Transform Utilities */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.backface-hidden {
-  backface-visibility: hidden;
-}
-
-.transform-style-3d {
-  transform-style: preserve-3d;
-}
-
-/* Scrollbar for terminal */
-.scrollbar-thin::-webkit-scrollbar {
-  width: 4px;
-}
-
-.scrollbar-thumb-cyber-green\/30::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 65, 0.3);
-}
-
-.scrollbar-track-transparent::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Terminal Cursor Blink */
-@keyframes cursor-blink {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-}
-
-.animate-cursor-blink {
-  animation: cursor-blink 1s step-end infinite;
-}
-
-/* Mobile Optimizations */
-@media (max-width: 768px) {
-  /* Disable snap scroll on mobile for better UX */
-  .snap-y {
-    scroll-snap-type: none;
-  }
-  
-  /* Better touch targets */
-  button, a {
-    -webkit-tap-highlight-color: rgba(0, 255, 65, 0.2);
-  }
-  
-  /* Prevent text size adjustment on iOS */
-  body {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
-}
-
-/* Touch manipulation for better performance */
-.touch-manipulation {
-  touch-action: manipulation;
-}
-
-/* Prevent pull-to-refresh on mobile */
-body {
-  overscroll-behavior-y: contain;
-}
-
-/* Better scrolling on iOS */
-@supports (-webkit-overflow-scrolling: touch) {
-  * {
-    -webkit-overflow-scrolling: touch;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
