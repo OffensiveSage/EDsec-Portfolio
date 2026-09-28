@@ -170,8 +170,11 @@ export default function ContactSection() {
             <div className="grid gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,9fr)]">
                 <div>
                     <SectionHeader tag="Contact" title="Let's talk security" />
-                    <p className="text-muted text-lg max-w-sm">
-                        Hiring, collaborating, or just want to trade notes on GRC and AI risk? Send a message — I reply to everything.
+                    <p className="font-display text-xl font-medium tracking-tight max-w-md">
+                        Think we might be a fit? Let&apos;s find out.
+                    </p>
+                    <p className="mt-3 text-muted text-lg max-w-md">
+                        You don&apos;t need a perfect match to reach out, whether it&apos;s a role, a project, research, or just a conversation. If you&apos;re working on risk, compliance or AI security, I&apos;d like to hear about it.
                     </p>
                     <div className="mt-6 flex flex-col gap-3 items-start">
                         <a href={profile.links.email} className="link-underline font-medium">Email me directly</a>
