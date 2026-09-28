@@ -171,7 +171,7 @@ export default function ContactSection() {
                 <div>
                     <SectionHeader tag="Contact" title="Let's talk security" />
                     <p className="font-display text-xl font-medium tracking-tight max-w-md">
-                        Think we might be a fit? Let&apos;s find out.
+                        The best conversations don&apos;t start with a checklist.
                     </p>
                     <p className="mt-3 text-muted text-lg max-w-md">
                         You don&apos;t need a perfect match to reach out, whether it&apos;s a role, a project, research, or just a conversation. If you&apos;re working on risk, compliance or AI security, I&apos;d like to hear about it.
