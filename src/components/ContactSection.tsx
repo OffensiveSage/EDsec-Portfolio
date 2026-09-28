@@ -11,6 +11,7 @@ export default function ContactSection() {
     const [isEncrypting, setIsEncrypting] = useState(false);
     const [isSent, setIsSent] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [sendFailed, setSendFailed] = useState(false);
     const [lastSubmitTime, setLastSubmitTime] = useState<number>(0);
 
     // EmailJS configuration
@@ -142,27 +143,23 @@ export default function ContactSection() {
                 throw new Error('Failed to send form submission');
             }
         } catch (err: any) {
+            // Keep provider details in the console; visitors get a friendly fallback.
             console.error("Failed to send email:", err);
-            
-            let errorMessage = "Couldn't send your message: ";
-            
-            if (err?.text) {
-                errorMessage += err.text;
-            } else if (err?.message) {
-                errorMessage += err.message;
-            } else if (typeof err === 'string') {
-                errorMessage += err;
-            } else {
-                errorMessage += "Unable to send message. Please check your connection and try again.";
-            }
-            
+
+            const isRateLimited = typeof err?.message === 'string' && err.message.startsWith('Rate limit');
+            const errorMessage = isRateLimited
+                ? err.message
+                : "Something went wrong sending your message. You can email me directly instead.";
+
             setIsEncrypting(false);
+            setSendFailed(!isRateLimited);
             setError(errorMessage);
-            
-            // Clear error after 8 seconds
+
+            // Clear error after 15 seconds
             setTimeout(() => {
                 setError(null);
-            }, 8000);
+                setSendFailed(false);
+            }, 15000);
         }
     };
 
@@ -231,7 +228,18 @@ export default function ContactSection() {
 
                             {error && (
                                 <p className="flex items-start gap-2 text-sm text-red-600" role="alert">
-                                    <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" /> {error}
+                                    <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                                    <span>
+                                        {error}
+                                        {sendFailed && (
+                                            <>
+                                                {" "}
+                                                <a href={profile.links.email} className="link-underline font-medium">
+                                                    {profile.links.email.replace("mailto:", "")}
+                                                </a>
+                                            </>
+                                        )}
+                                    </span>
                                 </p>
                             )}
 
