@@ -10,7 +10,7 @@ export default function ExperienceSection() {
             <div className="grid gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,9fr)]">
                 <div>
                     <div className="md:sticky md:top-16">
-                        <SectionHeader tag="Experience" title="Roles and impact" />
+                        <SectionHeader tag="Experience" title="Where I've worked" />
                         <div className="rounded-3xl bg-surface p-6 grid grid-cols-2 gap-6">
                             <div>
                                 <div className="font-display text-4xl font-medium">{experiences.length}</div>

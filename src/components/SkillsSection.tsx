@@ -4,7 +4,7 @@ import SectionHeader from "./SectionHeader";
 export default function SkillsSection() {
     return (
         <section id="skills" className="px-4 sm:px-6 py-16 md:py-24 border-t border-line">
-            <SectionHeader tag="Toolkit" title="Tools and frameworks" />
+            <SectionHeader tag="Toolkit" title="What I work with" />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {skills.map((group) => (
                     <div key={group.category} className="rounded-3xl bg-surface p-6">

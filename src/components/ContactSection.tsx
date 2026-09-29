@@ -149,7 +149,7 @@ export default function ContactSection() {
             const isRateLimited = typeof err?.message === 'string' && err.message.startsWith('Rate limit');
             const errorMessage = isRateLimited
                 ? err.message
-                : "Something went wrong sending your message. Email works too:";
+                : "Something went wrong sending your message. You can email me directly instead.";
 
             setIsEncrypting(false);
             setSendFailed(!isRateLimited);
@@ -174,10 +174,10 @@ export default function ContactSection() {
                         The best conversations don&apos;t start with a checklist.
                     </p>
                     <p className="mt-3 text-muted text-lg max-w-md">
-                        No perfect match needed. A role, a project, research or just a good conversation about risk, compliance or AI security. Say hello.
+                        You don&apos;t need a perfect match to reach out, whether it&apos;s a role, a project, research, or just a conversation. If you&apos;re working on risk, compliance or AI security, I&apos;d like to hear about it.
                     </p>
                     <div className="mt-6 flex flex-col gap-3 items-start">
-                        <a href={profile.links.email} className="link-underline font-medium">Send an email</a>
+                        <a href={profile.links.email} className="link-underline font-medium">Email me directly</a>
                         <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" className="link-underline font-medium">LinkedIn</a>
                         <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className="link-underline font-medium">GitHub</a>
                     </div>

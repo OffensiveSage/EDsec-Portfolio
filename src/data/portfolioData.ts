@@ -19,16 +19,16 @@ export const profile = {
     },
     about: [
         {
-            q: "Focus",
-            a: "Most security problems are communication problems in disguise. The work sits where risk, policy and engineering meet: assessing risk, mapping controls, and landing the fix people will actually adopt.",
+            q: "What do I focus on?",
+            a: "Security issues aren't always technical problems. Often they're communication problems. I work where risk, policy and engineering meet: assessing risk, mapping controls to frameworks, and making the case for the fix people will actually adopt.",
         },
         {
-            q: "Approach",
-            a: "Attacker and defender at once. Prompt injection tests on LLMs, real breaches traced to their root cause, and tooling that stops risky changes before they ship.",
+            q: "How do I think about it?",
+            a: "Like an attacker and a defender at once. I've tested LLMs with malicious prompt injections, analysed real-world breaches down to their root cause, and built tooling that blocks risky changes before they ship.",
         },
         {
-            q: "Next",
-            a: "Teams that treat security like a product: measurable, well governed, and built with the people who use it. Always up for talking shop.",
+            q: "What am I looking for?",
+            a: "Teams that treat security as a product: measurable, well-governed, and built with the people who use it. I'm always happy to talk shop.",
         },
     ],
 };
@@ -85,7 +85,7 @@ export const articles = [
     {
         id: 1,
         title: "Breaking Things Legally: TryHackMe Advent of Cyber",
-        description: "A month of TryHackMe's Advent of Cyber: ethical hacking, penetration testing and hands-on lessons, one challenge a day.",
+        description: "My journey through TryHackMe's Advent of Cyber challenge, exploring ethical hacking, penetration testing techniques, and hands-on cybersecurity learning.",
         date: "2024",
         platform: "Medium",
         tags: ["TryHackMe", "Ethical Hacking", "CTF", "Cybersecurity"],
