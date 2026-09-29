@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { articles, profile } from "@/data/portfolioData";
 
@@ -32,10 +33,17 @@ export default function Hero() {
                 </div>
 
                 {/* Photo panel */}
-                <div className="relative rounded-3xl overflow-hidden bg-surface min-h-[320px]">
+                <div className="relative rounded-3xl overflow-hidden bg-surface aspect-[4/5] sm:aspect-[4/3] md:aspect-auto">
                     {profile.photo ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={profile.photo} alt={profile.name} className="absolute inset-0 w-full h-full object-cover" />
+                        <Image
+                            src={profile.photo}
+                            alt={profile.name}
+                            fill
+                            priority
+                            sizes="(min-width: 768px) 60vw, 100vw"
+                            className="object-cover"
+                            style={{ objectPosition: profile.photoFocus }}
+                        />
                     ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
                             <span className="font-display text-[28vw] md:text-[16vw] font-semibold leading-none tracking-tighter text-line select-none">
@@ -49,7 +57,7 @@ export default function Hero() {
                             href={latest.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="absolute top-4 right-4 left-4 sm:left-auto sm:max-w-sm flex items-center gap-3 rounded-2xl bg-bg/95 backdrop-blur p-3 pr-4 shadow-lg hover:shadow-xl transition"
+                            className="absolute bottom-4 md:bottom-auto md:top-4 right-4 left-4 md:left-auto md:max-w-sm flex items-center gap-3 rounded-2xl bg-bg/95 backdrop-blur p-3 pr-4 shadow-lg hover:shadow-xl transition"
                         >
                             <span className="w-12 h-12 shrink-0 rounded-full bg-card text-card-ink flex items-center justify-center font-display font-medium">
                                 {latest.platform[0]}
