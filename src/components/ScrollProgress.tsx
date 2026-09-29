@@ -17,6 +17,23 @@ const sections = [
 export default function ScrollProgress() {
     const [progress, setProgress] = useState(0);
     const [marks, setMarks] = useState<{ id: string; label: string; at: number }[]>([]);
+    // Labels show briefly on the first visit so people learn the dots are clickable.
+    const [intro, setIntro] = useState(false);
+
+    useEffect(() => {
+        let seen = false;
+        try {
+            seen = sessionStorage.getItem("sectionHintSeen") === "1";
+            sessionStorage.setItem("sectionHintSeen", "1");
+        } catch {}
+        if (seen) return;
+        const start = setTimeout(() => setIntro(true), 600);
+        const end = setTimeout(() => setIntro(false), 4600);
+        return () => {
+            clearTimeout(start);
+            clearTimeout(end);
+        };
+    }, []);
 
     useEffect(() => {
         const maxScroll = () => document.documentElement.scrollHeight - window.innerHeight;
@@ -55,7 +72,7 @@ export default function ScrollProgress() {
 
     return (
         <div className="fixed top-0 inset-x-0 z-50 h-9 lg:h-11 px-4 sm:px-6 bg-bg/80 backdrop-blur-sm pointer-events-none">
-            <nav className="relative h-full flex items-center" aria-label="Sections">
+            <nav className="group/bar relative h-full flex items-center pointer-events-auto" aria-label="Sections">
                 <span className="absolute left-0 w-1.5 h-1.5 rounded-full bg-ink" />
                 <div className="absolute left-0 right-0 h-px bg-line" />
                 <div className="absolute left-0 h-px bg-ink" style={{ width: `${progress * 100}%` }} />
@@ -78,9 +95,9 @@ export default function ScrollProgress() {
                                 } group-hover:bg-accent group-hover:border-accent group-hover:scale-125`}
                             />
                             <span
-                                className={`hidden lg:block absolute top-[calc(50%+4px)] ${m.at > 0.92 ? "right-0" : "left-1/2 -translate-x-1/2"} text-[11px] leading-none whitespace-nowrap transition ${
+                                className={`hidden lg:block absolute top-[calc(50%+4px)] ${m.at > 0.92 ? "right-0" : "left-1/2 -translate-x-1/2"} text-[11px] leading-none whitespace-nowrap transition-opacity duration-500 ${
                                     passed ? "text-ink" : "text-muted"
-                                } group-hover:text-accent`}
+                                } ${intro ? "opacity-100" : "opacity-0"} group-hover/bar:opacity-100 group-hover:text-accent`}
                             >
                                 {m.label}
                             </span>
@@ -94,6 +111,15 @@ export default function ScrollProgress() {
                 >
                     <ShieldCheck className="w-3.5 h-3.5" strokeWidth={2.2} />
                 </div>
+
+                <span
+                    aria-hidden="true"
+                    className={`lg:hidden absolute top-full left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-card text-card-ink text-xs px-3 py-1.5 shadow-lg transition-opacity duration-500 pointer-events-none ${
+                        intro ? "opacity-100" : "opacity-0"
+                    }`}
+                >
+                    Tap a dot to jump to a section
+                </span>
             </nav>
         </div>
     );
