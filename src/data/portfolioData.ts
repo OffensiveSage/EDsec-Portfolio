@@ -1,8 +1,9 @@
 export const profile = {
     name: "Eshwar Desetty",
     title: "Security Strategy, GRC & AI Risk",
-    // Drop a photo in /public and set its path here, e.g. "/profile.jpg"
-    photo: "",
+    photo: "/profile.jpg",
+    // CSS object-position: keeps the face in frame when the photo is cropped
+    photoFocus: "30% 42%",
     lead: "I make security make sense — turning risk, policy and controls into decisions that people actually use.",
     meta: [
         { label: "Location", value: "Pittsburgh, PA" },
