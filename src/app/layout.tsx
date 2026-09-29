@@ -17,15 +17,15 @@ const display = Inter_Tight({
 export const metadata: Metadata = {
   title: "Eshwar Desetty | Security Strategy & GRC",
   description:
-    "Eshwar Desetty — security strategy, GRC and AI risk. MS in Information Security Policy & Management at Carnegie Mellon University.",
+    "Eshwar Desetty works on security strategy, GRC and AI risk. MS in Information Security Policy & Management at Carnegie Mellon University.",
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b0b" },
+    { media: "(prefers-color-scheme: light)", color: "#faf7f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#14110e" },
   ],
 };
 
