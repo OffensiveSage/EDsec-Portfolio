@@ -24,12 +24,12 @@ export default function BottomBar() {
                     className="hidden sm:flex items-center gap-6 pl-5 pr-2 rounded-2xl bg-accent text-accent-ink font-medium shadow-lg hover:brightness-95 transition"
                 >
                     Get in touch
-                    <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center">
+                    <span className="w-8 h-8 rounded-full bg-card text-card-ink flex items-center justify-center">
                         <ArrowRight className="w-4 h-4" />
                     </span>
                 </a>
 
-                <nav className="flex items-center gap-1 px-2 py-1.5 rounded-2xl bg-black text-white border border-white/10 shadow-lg" aria-label="Primary">
+                <nav className="flex items-center gap-1 px-2 py-1.5 rounded-2xl bg-card text-card-ink border border-white/10 shadow-lg" aria-label="Primary">
                     {nav.map(({ label, href, icon: Icon }) => (
                         <a
                             key={label}

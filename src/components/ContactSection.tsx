@@ -189,7 +189,7 @@ export default function ContactSection() {
                             <CheckCircle className="w-6 h-6 text-accent shrink-0" />
                             <div>
                                 <p className="font-medium text-lg">Message sent</p>
-                                <p className="text-muted">Thanks for reaching out — you&apos;ll get a confirmation email shortly.</p>
+                                <p className="text-muted">Thanks for reaching out. You&apos;ll get a confirmation email shortly.</p>
                             </div>
                         </div>
                     ) : (

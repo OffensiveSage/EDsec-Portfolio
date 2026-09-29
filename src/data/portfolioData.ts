@@ -4,7 +4,7 @@ export const profile = {
     photo: "/profile.jpg",
     // CSS object-position: keeps the face in frame when the photo is cropped
     photoFocus: "30% 42%",
-    lead: "I make security make sense — turning risk, policy and controls into decisions that people actually use.",
+    lead: "I make security make sense. I turn risk, policy and controls into decisions that people actually use.",
     meta: [
         { label: "Location", value: "Pittsburgh, PA" },
         { label: "Focus", value: "GRC, Risk Management, AI Security" },
@@ -20,7 +20,7 @@ export const profile = {
     about: [
         {
             q: "What do I focus on?",
-            a: "Security issues aren't always technical problems — often they're communication problems. I work where risk, policy and engineering meet: assessing risk, mapping controls to frameworks, and making the case for the fix people will actually adopt.",
+            a: "Security issues aren't always technical problems. Often they're communication problems. I work where risk, policy and engineering meet: assessing risk, mapping controls to frameworks, and making the case for the fix people will actually adopt.",
         },
         {
             q: "How do I think about it?",
@@ -43,7 +43,7 @@ export const skills = [
 export const certifications = [
     "CISSP (Candidate)",
     "CompTIA Security+ (Candidate)",
-    "Google — Bits and Bytes of Computer Networking",
+    "Google Bits and Bytes of Computer Networking",
 ];
 
 export const experiences = [
@@ -107,7 +107,7 @@ export const projects = [
         id: 2,
         title: "Change Healthcare Ransomware Attack",
         category: "Threat Intelligence",
-        summary: "Root-cause analysis of a $2.3B attack on 15B healthcare transactions — and the zero-trust plan to prevent it.",
+        summary: "Root-cause analysis of a $2.3B attack on 15B healthcare transactions, plus the zero-trust plan to prevent it.",
         description: "Analyzed $2.3B ransomware attack affecting 15 billion healthcare transactions, identifying MFA absence as root cause and developing threat intelligence report with HIPAA-aligned zero-trust and incident response recommendations.",
         tech: ["Threat Intelligence", "HIPAA", "Zero-Trust", "Incident Response"],
         links: { github: "#", demo: "" }
