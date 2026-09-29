@@ -5,7 +5,7 @@ export default function AboutSection() {
     return (
         <section id="about" className="px-4 sm:px-6 py-16 md:py-24 border-t border-line">
             <div className="grid gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,9fr)]">
-                <SectionHeader tag="About" title="In my own words" />
+                <SectionHeader tag="About" title="The short version" />
 
                 <div className="max-w-2xl space-y-10">
                     {profile.about.map((item) => (

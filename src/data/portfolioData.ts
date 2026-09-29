@@ -4,7 +4,7 @@ export const profile = {
     photo: "/profile.jpg",
     // CSS object-position: keeps the face in frame when the photo is cropped
     photoFocus: "30% 42%",
-    lead: "I make security make sense. I turn risk, policy and controls into decisions that people actually use.",
+    lead: "Security that makes sense. Risk, policy and controls, turned into decisions people actually follow.",
     meta: [
         { label: "Location", value: "Pittsburgh, PA" },
         { label: "Focus", value: "GRC, Risk Management, AI Security" },
@@ -19,16 +19,16 @@ export const profile = {
     },
     about: [
         {
-            q: "What do I focus on?",
-            a: "Security issues aren't always technical problems. Often they're communication problems. I work where risk, policy and engineering meet: assessing risk, mapping controls to frameworks, and making the case for the fix people will actually adopt.",
+            q: "Focus",
+            a: "Most security problems are communication problems in disguise. The work sits where risk, policy and engineering meet: assessing risk, mapping controls, and landing the fix people will actually adopt.",
         },
         {
-            q: "How do I think about it?",
-            a: "Like an attacker and a defender at once. I've tested LLMs with malicious prompt injections, analysed real-world breaches down to their root cause, and built tooling that blocks risky changes before they ship.",
+            q: "Approach",
+            a: "Attacker and defender at once. Prompt injection tests on LLMs, real breaches traced to their root cause, and tooling that stops risky changes before they ship.",
         },
         {
-            q: "What am I looking for?",
-            a: "Teams that treat security as a product: measurable, well-governed, and built with the people who use it. I'm always happy to talk shop.",
+            q: "Next",
+            a: "Teams that treat security like a product: measurable, well governed, and built with the people who use it. Always up for talking shop.",
         },
     ],
 };
@@ -49,7 +49,7 @@ export const certifications = [
 export const experiences = [
     {
         id: 1,
-        role: "CMU Student Representative - ISPM",
+        role: "CMU Student Representative, ISPM",
         company: "Carnegie Mellon University",
         period: "01/2026 - Fall 2026",
         description: "Selected as Student Representative for the ISPM cohort at Heinz College. Gather feedback from students, help shape events and programming, and support connection within the cohort to enhance the student experience.",
@@ -85,7 +85,7 @@ export const articles = [
     {
         id: 1,
         title: "Breaking Things Legally: TryHackMe Advent of Cyber",
-        description: "My journey through TryHackMe's Advent of Cyber challenge - exploring ethical hacking, penetration testing techniques, and hands-on cybersecurity learning.",
+        description: "A month of TryHackMe's Advent of Cyber: ethical hacking, penetration testing and hands-on lessons, one challenge a day.",
         date: "2024",
         platform: "Medium",
         tags: ["TryHackMe", "Ethical Hacking", "CTF", "Cybersecurity"],
@@ -123,7 +123,7 @@ export const projects = [
     },
     {
         id: 4,
-        title: "Cyber Threat Intelligence - Energy Sector",
+        title: "Cyber Threat Intelligence: Energy Sector",
         category: "Adversary Simulation",
         summary: "OSINT-led attack simulation against a Fortune 500 energy HQ, mapped across the Cyber Kill Chain.",
         description: "Simulated adversary behavior on HQ of a Fortune 500 energy company, conducted OSINT to identify vulnerabilities and phishing opportunities, documented threat actors, and reported findings from various stages of the Cyber Kill Chain with recommendations.",
