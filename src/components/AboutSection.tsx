@@ -15,7 +15,7 @@ export default function AboutSection() {
                         </div>
                     ))}
 
-                    <div>
+                    <div id="education">
                         <h3 className="font-display text-xl sm:text-2xl font-medium tracking-tight mb-4">Education</h3>
                         <ul className="divide-y divide-line border-y border-line">
                             {education.map((e) => (
