@@ -2,19 +2,21 @@
 
 import { useState } from "react";
 import { ArrowUpRight, Github, Plus } from "lucide-react";
-import { articles, projects } from "@/data/portfolioData";
+import { articles, featuredCount, projects } from "@/data/portfolioData";
 import SectionHeader from "./SectionHeader";
 
 // Each project reads like a story teaser: tag, title, one-line outcome, expandable detail.
 export default function ProjectsSection() {
     const [open, setOpen] = useState<number | null>(null);
+    const [showAll, setShowAll] = useState(false);
+    const visible = showAll ? projects : projects.slice(0, featuredCount);
 
     return (
         <section id="work" className="px-4 sm:px-6 py-16 md:py-24 border-t border-line">
             <SectionHeader tag="Selected work" title="Projects & case studies" />
 
             <ul className="border-t border-line">
-                {projects.map((p, i) => {
+                {visible.map((p, i) => {
                     const isOpen = open === p.id;
                     const hasRepo = p.links.github && p.links.github !== "#";
                     return (
@@ -48,6 +50,7 @@ export default function ProjectsSection() {
                                     <div className="pb-8 md:grid md:grid-cols-[minmax(0,5fr)_minmax(0,9fr)]">
                                         <div />
                                         <div className="max-w-2xl">
+                                            <p className="text-sm text-muted mb-2">{p.period}</p>
                                             <p className="leading-relaxed">{p.description}</p>
                                             <div className="mt-4 flex flex-wrap gap-2">
                                                 {p.tech.map((t) => (
@@ -72,6 +75,19 @@ export default function ProjectsSection() {
                     );
                 })}
             </ul>
+
+            {projects.length > featuredCount && (
+                <button
+                    onClick={() => setShowAll((v) => !v)}
+                    aria-expanded={showAll}
+                    className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-ink pl-5 pr-2 py-2 font-medium hover:bg-ink hover:text-bg transition"
+                >
+                    {showAll ? "Show fewer projects" : `Show all ${projects.length} projects`}
+                    <span className="w-7 h-7 rounded-full bg-accent text-accent-ink flex items-center justify-center">
+                        <Plus className={`w-4 h-4 transition-transform duration-300 ${showAll ? "rotate-45" : ""}`} />
+                    </span>
+                </button>
+            )}
 
             {articles.length > 0 && (
                 <div className="mt-16">
