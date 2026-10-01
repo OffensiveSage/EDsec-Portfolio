@@ -222,18 +222,27 @@ export const projects = [
 export const education = [
     {
         id: 1,
-        degree: "Master of Science in Information Security Policy and Management",
         school: "Carnegie Mellon University",
-        period: "Expected 05/2027",
-        description: "Advanced studies in Information Security Policy and Management at Pittsburgh, PA.",
-        achievements: ["Information Security Focus", "Policy & Management"]
+        college: "Heinz College",
+        location: "Pittsburgh, PA",
+        degree: "Master of Science in Information Security Policy & Management",
+        period: "Aug 2025 to May 2027",
+        // Shown in the "At CMU" grid on the featured card
+        highlights: [
+            { label: "Research", detail: "CyLab / SEI: self hosted LLM vulnerability discovery and triage" },
+            { label: "Teaching", detail: "Graduate Assistant for Cyber Threat Intel and for Linux and Open Source" },
+            { label: "Network Defense", detail: "IT Lab Assistant: 6 AWS workshops and 7 exploit challenges for 50+ fellows" },
+            { label: "Leadership", detail: "Elected Student Representative for the ISPM cohort" },
+            { label: "Community", detail: "PPP Hacking Team, Carnegie AI Safety (CASI), BSides CTF contributor" },
+        ],
     },
     {
         id: 2,
-        degree: "Bachelor of Science in Computer Science",
         school: "Vellore Institute of Technology",
-        period: "08/2021 - 08/2025",
-        description: "Specialization in Cybersecurity and Digital Forensics at Bhopal, Madhya Pradesh, India.",
-        achievements: ["Cybersecurity Specialization", "Digital Forensics Focus"]
+        college: "",
+        location: "Bhopal, India",
+        degree: "Bachelor in Computer Science and Engineering, Cybersecurity and Digital Forensics",
+        period: "Aug 2021 to Aug 2025",
+        highlights: [],
     }
 ];
