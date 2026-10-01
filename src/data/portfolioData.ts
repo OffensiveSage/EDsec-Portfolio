@@ -93,60 +93,129 @@ export const articles = [
     }
 ];
 
+// The first `featuredCount` projects show by default; the rest sit behind "Show all".
+export const featuredCount = 6;
+
 export const projects = [
     {
         id: 1,
+        title: "Muster, AI Compliance Automation",
+        category: "GRC Automation",
+        period: "Sep 2026 to present",
+        summary: "LLM workflows that collect SOC 2 and NIST CSF audit evidence, with guardrails and manager sign off.",
+        description: "Automates SOC 2 and NIST CSF audit evidence collection and compliance reporting. LLM workflows map controls to owners, with prompt injection guardrails, output validation and a manager sign off step before anything is final.",
+        tech: ["SOC 2", "NIST CSF", "LLM Workflows", "Prompt Injection Guardrails", "Python"],
+        links: { github: "", demo: "" }
+    },
+    {
+        id: 2,
+        title: "EV Charging Product Security Assessment",
+        category: "Product Security",
+        period: "Oct 2026",
+        summary: "An OCPP charge point stack tested against 13 ETSI EN 303 645 areas, with 6 gaps mapped to EN 18031.",
+        description: "Threat modeled an OCPP charge point stack and tested 13 ETSI EN 303 645 provision areas. Documented 6 security gaps across authentication, TLS, firmware updates, exposed services, logging and input validation, each mapped to EN 18031 controls.",
+        tech: ["ETSI EN 303 645", "EN 18031", "OCPP", "Threat Modeling", "IoT Security"],
+        links: { github: "", demo: "" }
+    },
+    {
+        id: 3,
+        title: "ThreatLens",
+        category: "Vulnerability Intelligence",
+        period: "Feb 2026 to Aug 2026",
+        summary: "Connects NVD CVEs to MITRE ATT&CK, NIST 800-53 controls and Sigma detections to rank what to fix first.",
+        description: "Open source vulnerability intelligence platform that unifies 4 security sources through REST APIs and RAG. Correlates NVD CVEs with MITRE ATT&CK techniques, NIST 800-53 controls and Sigma detection logic in one analysis workflow.",
+        tech: ["NVD", "MITRE ATT&CK", "NIST 800-53", "Sigma", "RAG", "REST APIs"],
+        links: { github: "", demo: "" }
+    },
+    {
+        id: 4,
+        title: "U.S. Coast Guard, Secure AI Decision System",
+        category: "AI Safety",
+        period: "Sep 2026 to present",
+        summary: "An offline AI workflow that grounds HAZMAT decisions in cited 49 CFR regulations.",
+        description: "Offline AI workflow for HAZMAT decisions, grounded in 49 CFR. Combines evidence retrieval, direct regulatory citations and output validation so every recommendation is traceable to the rule behind it.",
+        tech: ["49 CFR", "Offline AI", "Evidence Retrieval", "Output Validation"],
+        links: { github: "", demo: "" }
+    },
+    {
+        id: 5,
+        title: "LLM Vulnerability Discovery & Triage",
+        category: "Research, CyLab / SEI",
+        period: "Sep 2026 to present",
+        summary: "A two stage self hosted LLM pipeline, benchmarked against SAST on precision, recall and false positives.",
+        description: "Research at CyLab and SEI. A two stage self hosted LLM pipeline that automates vulnerability discovery, independent adjudication and severity ranking, benchmarked against SAST baselines on precision, recall and false positive rate.",
+        tech: ["Self Hosted LLMs", "SAST", "Vulnerability Triage", "Benchmarking"],
+        links: { github: "", demo: "" }
+    },
+    {
+        id: 6,
+        title: "LLM Security Evaluation & Observability",
+        category: "AI Governance",
+        period: "Nov 2025 to Jan 2026",
+        summary: "38 LLM traces analysed for injection and compromise; 3 vulnerable models kept out of production.",
+        description: "Auditable AI pipeline using Llama 3 and Arize Phoenix for model observability and decision transparency, with a forensic flight recorder built on OpenTelemetry. Analysed 38 LLM traces for injection and compromise and kept 3 vulnerable models out of production.",
+        tech: ["OpenTelemetry", "Arize Phoenix", "Llama 3", "LLM Security", "Python"],
+        links: { github: "https://github.com/OffensiveSage/LLM-Observability-Audit", demo: "" }
+    },
+    {
+        id: 7,
+        title: "Agentic AI Security & Governance",
+        category: "AI Governance",
+        period: "Apr 2026",
+        summary: "Practical security requirements for agentic AI: oversight, auditability, runtime controls and data protection.",
+        description: "Defined governance requirements for agentic AI spanning human oversight, auditability, runtime controls, data protection and platform responsibility, turning emerging AI risks into practical security requirements.",
+        tech: ["AI Governance", "Agentic AI", "Runtime Controls", "Auditability"],
+        links: { github: "", demo: "" }
+    },
+    {
+        id: 8,
+        title: "SimplySecure",
+        category: "Endpoint Compliance",
+        period: "Personal project",
+        summary: "A macOS app that checks permissions, encryption and updates, and runs AI voice phishing drills.",
+        description: "macOS endpoint compliance and awareness tool built in SwiftUI. Checks app permissions, FileVault encryption, OS updates and browser security, uses Gemini and Perplexity APIs for privacy policy risk analysis, and runs AI voice phishing simulations for security awareness.",
+        tech: ["SwiftUI", "macOS Security", "Gemini API", "AI Phishing Simulation"],
+        links: { github: "https://github.com/OffensiveSage/SimplySecure", demo: "" }
+    },
+    {
+        id: 9,
         title: "XRPL Guardrails",
         category: "Supply Chain Security",
+        period: "Personal project",
         summary: "Preflight checks that block vulnerable dependencies before any XRP Ledger transaction runs.",
         description: "Engineered a TypeScript wrapper and preflight system for XRP Ledger transactions, enforcing dependency pinning, SHA-256 lockfile integrity checks, and npm audit policies to block critical vulnerabilities before sensitive blockchain actions execute.",
         tech: ["TypeScript", "XRP Ledger", "Supply Chain Security", "npm audit", "SHA-256"],
         links: { github: "https://github.com/OffensiveSage/xrpl-guardrails", demo: "" }
     },
     {
-        id: 2,
-        title: "Change Healthcare Ransomware Attack",
-        category: "Threat Intelligence",
-        summary: "Root-cause analysis of a $2.3B attack on 15B healthcare transactions, plus the zero-trust plan to prevent it.",
-        description: "Analyzed $2.3B ransomware attack affecting 15 billion healthcare transactions, identifying MFA absence as root cause and developing threat intelligence report with HIPAA-aligned zero-trust and incident response recommendations.",
-        tech: ["Threat Intelligence", "HIPAA", "Zero-Trust", "Incident Response"],
-        links: { github: "#", demo: "" }
-    },
-    {
-        id: 3,
-        title: "SimplySecure",
-        category: "Product Security",
-        summary: "A macOS app that monitors permissions, checks encryption and runs AI-powered phishing drills.",
-        description: "Developed macOS security application using SwiftUI with real-time app permission monitoring, encryption status validation, vulnerability assessment via API for privacy policy risk analysis, and AI-powered phishing simulation for security awareness.",
-        tech: ["SwiftUI", "macOS Security", "API Integration", "AI Phishing Simulation"],
-        links: { github: "https://github.com/OffensiveSage/SimplySecure", demo: "#" }
-    },
-    {
-        id: 4,
+        id: 10,
         title: "Cyber Threat Intelligence: Energy Sector",
-        category: "Adversary Simulation",
-        summary: "OSINT-led attack simulation against a Fortune 500 energy HQ, mapped across the Cyber Kill Chain.",
-        description: "Simulated adversary behavior on HQ of a Fortune 500 energy company, conducted OSINT to identify vulnerabilities and phishing opportunities, documented threat actors, and reported findings from various stages of the Cyber Kill Chain with recommendations.",
-        tech: ["OSINT", "Cyber Kill Chain", "Threat Intelligence", "Adversary Simulation"],
-        links: { github: "#", demo: "" }
+        category: "Threat Intelligence",
+        period: "Aug 2025 to Sep 2025",
+        summary: "OSINT-led threat analysis of a Fortune 500 energy company, mapped with MITRE ATT&CK.",
+        description: "Threat analysis for a Fortune 500 critical infrastructure company: 6 Priority Intelligence Requirements, threat actors mapped with MITRE ATT&CK, OSINT across CVE/NVD and E-ISAC advisories for SCADA/OT exposure, and a fusion center design with 11 roles.",
+        tech: ["OSINT", "MITRE ATT&CK", "SCADA/OT", "Threat Intelligence"],
+        links: { github: "", demo: "" }
     },
     {
-        id: 5,
+        id: 11,
+        title: "Change Healthcare Ransomware Attack",
+        category: "Incident Analysis",
+        period: "Case study",
+        summary: "Root-cause analysis of a $2.3B attack on 15B healthcare transactions, plus the zero-trust plan to prevent it.",
+        description: "Analyzed the $2.3B ransomware attack affecting 15 billion healthcare transactions, identifying missing MFA as the root cause and developing a threat intelligence report with HIPAA-aligned zero-trust and incident response recommendations.",
+        tech: ["Threat Intelligence", "HIPAA", "Zero-Trust", "Incident Response"],
+        links: { github: "", demo: "" }
+    },
+    {
+        id: 12,
         title: "AI Security Research",
-        category: "AI Security",
+        category: "LLM Security",
+        period: "Research",
         summary: "An ML framework to detect, isolate and remediate prompt injection in LLMs.",
-        description: "Developed machine learning threat detection framework for real-time detection, isolation, and remediation of prompt injection vulnerabilities in LLMs, validating attack mitigation controls through adversarial testing and threat modeling.",
+        description: "Developed a machine learning threat detection framework for real-time detection, isolation, and remediation of prompt injection vulnerabilities in LLMs, validating attack mitigation controls through adversarial testing and threat modeling.",
         tech: ["Machine Learning", "LLM Security", "Threat Modeling", "Adversarial Testing"],
-        links: { github: "#", demo: "" }
-    },
-    {
-        id: 6,
-        title: "LLM Observability Audit",
-        category: "AI Governance",
-        summary: "An auditable AI pipeline with a forensic “flight recorder” for every model decision.",
-        description: "Auditable AI pipeline using Llama 3 and Arize Phoenix for model observability, telemetry, and decision transparency. Implemented forensic 'flight recorder' using OpenTelemetry.",
-        tech: ["Llama 3", "Arize Phoenix", "OpenTelemetry", "Python"],
-        links: { github: "https://github.com/OffensiveSage/LLM-Observability-Audit", demo: "" }
+        links: { github: "", demo: "" }
     }
 ];
 

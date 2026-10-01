@@ -20,6 +20,8 @@ const social = [
 
 const email = profile.links.email.replace("mailto:", "");
 const ease = [0.22, 1, 0.36, 1] as const;
+// Soft spring for the button gliding between the bar and the corner.
+const glide = { type: "spring", stiffness: 70, damping: 18, mass: 1 } as const;
 
 // Hide the bar while reading (scrolling down) and bring it back on scroll up,
 // near the top, or near the end of the page. The "Get in touch" button docks
@@ -29,14 +31,20 @@ function useDocked() {
 
     useEffect(() => {
         let lastY = window.scrollY;
+        // Distance travelled in the current direction. Docking only flips after a
+        // deliberate scroll, so small wiggles don't make the button bounce around.
+        let travelled = 0;
         const onScroll = () => {
             const y = window.scrollY;
             const delta = y - lastY;
-            if (Math.abs(delta) < 8) return;
-            const nearTop = y < 160;
-            const nearEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 320;
-            setDocked(!nearTop && !nearEnd && delta > 0);
             lastY = y;
+            travelled = Math.sign(delta) === Math.sign(travelled) ? travelled + delta : delta;
+
+            const nearTop = y < 240;
+            const nearEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 320;
+            if (nearTop || nearEnd) setDocked(false);
+            else if (travelled > 120) setDocked(true);
+            else if (travelled < -80) setDocked(false);
         };
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
@@ -138,7 +146,7 @@ function GetInTouch({ docked, open, onToggle }: { docked: boolean; open: boolean
     return (
         <motion.button
             layoutId="get-in-touch"
-            transition={{ layout: { duration: 0.55, ease } }}
+            transition={{ layout: glide }}
             onClick={onToggle}
             aria-expanded={open}
             aria-haspopup="dialog"
@@ -146,9 +154,10 @@ function GetInTouch({ docked, open, onToggle }: { docked: boolean; open: boolean
                 docked ? "gap-3 pl-4 pr-1.5 py-1.5 text-sm" : "h-full gap-6 pl-5 pr-2"
             }`}
         >
-            <motion.span layout="position">Get in touch</motion.span>
+            <motion.span layout="position" transition={{ layout: glide }}>Get in touch</motion.span>
             <motion.span
                 layout="position"
+                transition={{ layout: glide }}
                 className={`rounded-full bg-card text-card-ink flex items-center justify-center ${docked ? "w-7 h-7" : "w-8 h-8"}`}
             >
                 <ArrowRight className={`w-4 h-4 transition-transform duration-300 ${open ? (docked ? "rotate-90" : "-rotate-90") : ""}`} />
@@ -200,7 +209,7 @@ export default function BottomBar() {
                 layoutRoot
                 className="fixed bottom-4 inset-x-0 z-50 px-4 flex justify-center pointer-events-none"
                 animate={{ y: docked ? 110 : 0, opacity: docked ? 0 : 1 }}
-                transition={{ duration: 0.4, ease }}
+                transition={{ duration: 0.6, ease }}
             >
                 <div className="flex items-stretch gap-2 sm:gap-3 pointer-events-auto">
                     {!docked && <div className="hidden sm:block">{cta}</div>}
