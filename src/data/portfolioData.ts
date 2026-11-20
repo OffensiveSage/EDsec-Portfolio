@@ -53,15 +53,15 @@ export const experiences = [
         role: "Information Security Intern → Student Worker",
         company: "Viatris",
         period: "05/2026 - Present",
-        description: "Joined Information Security as an intern and was kept on as a student worker. Built a Python and SQL NIS2 evidence repository mapping 150+ requirements to controls across 12 domains, including OT/ICS, cutting evidence collection for a Big 4-led audit from 2 weeks to 2 days. Assessed 300+ business processes and presented 40+ prioritized risks to security leadership, routed 25+ technology requests through SAP LeanIX security intake, coordinated secure decommissioning of 15+ applications, answered SIG and CAIQ security questionnaires, and integrated enterprise applications with Okta SSO over SAML and OIDC. Won the Best Intern Award (team of 6) for the AI Learning Twin, a RAG system over lab and clinical data.",
+        description: "Walked in as an intern, got asked to stay. Built the tool that turned a two week audit paper chase into two days, helped leadership see which risks actually mattered, and walked away with the Best Intern Award.",
         tech: ["NIS2", "Python & SQL", "SAP LeanIX", "Okta SSO", "ServiceNow", "RAG"]
     },
     {
         id: 2,
         role: "AI Security Engineer",
-        company: "U.S. Coast Guard",
+        company: "U.S. Coast Guard R&D Center",
         period: "08/2026 - Present",
-        description: "Collaborated with the U.S. Coast Guard R&D Center through Hacking for Defense (H4D) to make sure a container inspector never acts on a wrong HAZMAT answer, deploying guardrails that check every sentence against 1,304 cited federal regulation paragraphs and refuse to guess, hitting 92% citation accuracy with zero uncited answers on inspectors' own devices.",
+        description: "Coast Guard inspectors check shipping containers for hazardous materials, where a wrong answer is dangerous. Built a tool that only answers when it can point to the exact federal rule, refuses to guess when it can't, and runs right on inspectors' own devices.",
         tech: ["AI Guardrails", "Retrieval", "Evaluation Design", "49 CFR", "Swift", "JavaScript"]
     },
     {
@@ -69,7 +69,7 @@ export const experiences = [
         role: "Graduate Teaching Assistant",
         company: "Carnegie Mellon University",
         period: "01/2026 - Present",
-        description: "Teaching assistant for 95-844 Cyber Threat Intelligence and 95-799 Linux and Open Source at Heinz College. Earlier, supported a graduate product management course: hosted weekly office hours, graded and administered Canvas for 40+ students, and guided student projects.",
+        description: "Helps grad students find their way through Cyber Threat Intelligence and Linux at Heinz College. Before that, coached 40+ students through a product management course.",
         tech: ["Threat Intelligence", "Linux", "Teaching", "Canvas LMS"]
     },
     {
@@ -77,7 +77,7 @@ export const experiences = [
         role: "CMU Student Representative, ISPM",
         company: "Carnegie Mellon University",
         period: "01/2026 - Fall 2026",
-        description: "Selected as Student Representative for the ISPM cohort at Heinz College. Gather feedback from students, help shape events and programming, and support connection within the cohort to enhance the student experience.",
+        description: "Speaks up for the ISPM class at Heinz: listens to what students actually want and helps turn it into events that bring everyone together.",
         tech: ["Leadership", "Student Advocacy", "Event Planning", "Community Building"]
     },
     {
@@ -85,7 +85,7 @@ export const experiences = [
         role: "IT Lab Assistant, Network Defense",
         company: "Carnegie Mellon University",
         period: "06/2026 - 08/2026",
-        description: "Delivered 6 hands-on cloud security workshops for 50+ fellows in an AWS lab (VPC, IAM, CloudTrail) with segmented subnets, firewalls and Active Directory, and designed 7 exploit development challenges, from stack overflows and ROP chains to SUID escalation and ASLR, NX and canary bypasses, with a 95% full completion rate.",
+        description: "Spent the summer teaching 50+ fellows how to defend cloud systems, then built hacking puzzles so they could see how attackers think. 95% of them solved every single one.",
         tech: ["AWS", "Network Defense", "Exploit Development", "Active Directory"]
     },
     {
@@ -93,7 +93,7 @@ export const experiences = [
         role: "Founding Engineer",
         company: "Stealth Health Tech Startup",
         period: "01/2026 - 04/2026",
-        description: "Sole engineer on an AWS-hosted health app in production. Implemented HIPAA security requirements for PHI, including authentication, authorization, least privilege, encryption at rest and audit logs, and gated every release with SAST, dependency and secrets scans.",
+        description: "The one and only engineer at a health startup with a live app. Made sure patient data stayed private from day one, and nothing went out the door without a security check.",
         tech: ["AWS", "HIPAA", "SAST", "Secrets Scanning", "Secure SDLC"]
     },
     {
@@ -101,7 +101,7 @@ export const experiences = [
         role: "Project Management Officer",
         company: "CredXO",
         period: "06/2024 - 06/2025",
-        description: "Coordinated engineering workflows for 12-15 member development team at blockchain-based fintech startup. Enforced security and operational policies including repository access controls and confidential data handling protocols. Supported Shark Tank INDIA pitch preparation.",
+        description: "Kept a 12 to 15 person tech team at a crypto payments startup moving in the same direction, set the ground rules for keeping company data safe, and helped get the team ready to pitch on Shark Tank India.",
         tech: ["Project Management", "Security Policies", "Blockchain", "Fintech"]
     },
     {
@@ -109,7 +109,7 @@ export const experiences = [
         role: "Cybersecurity Analyst Intern",
         company: "Hacker Bro Technologies",
         period: "06/2023 - 08/2023",
-        description: "Completed intensive training in incident response, vulnerability assessment and security event monitoring using SIEM platforms. Practiced penetration testing techniques including network reconnaissance with Nmap, packet analysis using Wireshark and web application security testing with Burp Suite.",
+        description: "Where it all started: a first taste of real security work, learning how attackers break in and how defenders catch them.",
         tech: ["SIEM", "Penetration Testing", "Nmap", "Wireshark", "Burp Suite"]
     }
 ];
@@ -135,8 +135,8 @@ export const projects = [
         title: "EV Charging Product Security Assessment",
         category: "Product Security",
         period: "Oct 2026",
-        summary: "An OCPP charge point stack tested against 13 ETSI EN 303 645 areas, with 6 gaps mapped to EN 18031.",
-        description: "Threat modeled an OCPP charge point stack and tested 13 ETSI EN 303 645 provision areas. Documented 6 security gaps across authentication, TLS, firmware updates, exposed services, logging and input validation, each mapped to EN 18031 controls.",
+        summary: "Played attacker against an electric car charger and found 6 ways it fell short of European security rules.",
+        description: "Mapped out how someone could attack an EV charging station, then checked it against 13 areas of a European security standard for connected devices. Found 6 gaps, from weak logins and encryption to risky software updates and exposed services, and matched each one to the fix the rules expect.",
         tech: ["ETSI EN 303 645", "EN 18031", "OCPP", "Threat Modeling", "IoT Security"],
         links: { github: "", demo: "" }
     },
@@ -145,8 +145,8 @@ export const projects = [
         title: "HazLook, U.S. Coast Guard HAZMAT Guardrails",
         category: "AI Safety",
         period: "Oct 2026 to present",
-        summary: "Offline 49 CFR HAZMAT lookup where every answer is traceable to the exact regulation.",
-        description: "Retrieval over 1,304 cited 49 CFR paragraphs plus a rule engine of 38 tested rules. A citation validator removes any sentence that does not trace to its source paragraph. Measured on 60 questions: 92% citation accuracy, 0% uncited answers, 10 of 10 out-of-scope questions declined. Runs fully offline as an iPhone app and a website.",
+        summary: "A HAZMAT lookup for Coast Guard inspectors that shows its source for every answer and works with no internet.",
+        description: "Inspectors ask a question and get an answer backed by the exact paragraph of federal law, out of 1,304 of them. Anything that can't be traced to a source gets cut. Tested on 60 questions: 92% of citations right, never an answer without a source, and all 10 off-topic questions politely turned down. Works fully offline as an iPhone app and a website.",
         tech: ["Retrieval", "Citation Validation", "Offline-First", "49 CFR", "Evaluation"],
         links: { github: "", demo: "" }
     },
@@ -155,8 +155,8 @@ export const projects = [
         title: "MedTech Security Compliance Checker",
         category: "Cloud Compliance",
         period: "Oct 2026",
-        summary: "A scheduled AWS Lambda that flags 5 classes of cloud misconfiguration and maps them to HIPAA safeguards.",
-        description: "Serverless Python checker on AWS SAM that scans S3, security groups, IAM, RDS and CloudTrail for misconfigurations, maps every finding to a HIPAA safeguard, alerts through SNS, writes reports to S3 and keeps an audit trail in DynamoDB, with 8 tests using moto. Built with Claude Code (Opus 5.5).",
+        summary: "A scheduled check that spots 5 kinds of risky cloud settings and says which health privacy rule each one breaks.",
+        description: "Runs on its own in the cloud, looks across storage, networks, access and databases for settings that could leave data exposed, and ties every finding to a HIPAA safeguard. Sends an alert, saves a report and keeps a record of everything it found. Built with Claude Code (Opus 5.5).",
         tech: ["AWS Lambda", "Python", "HIPAA", "DynamoDB", "SNS"],
         links: { github: "", demo: "" }
     },
@@ -165,8 +165,8 @@ export const projects = [
         title: "Muster, AI Compliance Automation",
         category: "GRC Automation",
         period: "Sep 2026 to present",
-        summary: "LLM workflows that collect SOC 2 and NIST CSF audit evidence, with guardrails and manager sign off.",
-        description: "Automates SOC 2 and NIST CSF audit evidence collection and compliance reporting. LLM workflows map controls to owners, with prompt injection guardrails, output validation and a manager sign off step before anything is final.",
+        summary: "Takes the grind out of compliance audits by collecting the proof automatically, with a manager signing off at the end.",
+        description: "Audits usually mean chasing people for evidence. Muster gathers it for SOC 2 and NIST CSF on its own, works out who owns each control, has protections against being tricked by malicious instructions, and nothing is final until a manager approves it.",
         tech: ["SOC 2", "NIST CSF", "LLM Workflows", "Prompt Injection Guardrails", "Python"],
         links: { github: "", demo: "" }
     },
@@ -175,8 +175,8 @@ export const projects = [
         title: "LLM Vulnerability Discovery & Triage",
         category: "Research, CyLab / SEI",
         period: "Sep 2026 to present",
-        summary: "A two stage self hosted LLM pipeline, benchmarked against SAST on precision, recall and false positives.",
-        description: "Research at CyLab and SEI. A two stage self hosted LLM pipeline that automates vulnerability discovery, independent adjudication and severity ranking, benchmarked against SAST baselines on precision, recall and false positive rate.",
+        summary: "Research on whether AI can find security bugs in code better than traditional scanners.",
+        description: "Research at CMU's CyLab and SEI. A two step AI pipeline hunts for security bugs, a second check confirms them, and each one gets ranked by how serious it is. Then it goes head to head with standard code scanners on accuracy and false alarms.",
         tech: ["Self Hosted LLMs", "SAST", "Vulnerability Triage", "Benchmarking"],
         links: { github: "", demo: "" }
     },
@@ -185,8 +185,8 @@ export const projects = [
         title: "Security Pulse",
         category: "Security Awareness",
         period: "Aug 2026",
-        summary: "One-minute daily security scenarios that replace annual training, with governance built in.",
-        description: "Mobile-first security awareness platform with a Flutter app, a Next.js admin portal and a FastAPI API on PostgreSQL and Redis. Employees answer one role-aware scenario a day across 6 topics, including phishing and social engineering. Security teams publish content through a 4-stage approval workflow (Draft, In Review, Approved, Published) with 3 roles (analyst, approver, admin), audit events and privacy-safe aggregate analytics. OIDC sign-in and 4 CI pipelines. Built with Claude Code and OpenAI Codex, each reviewing the other's work.",
+        summary: "Security training people might actually enjoy: a one minute scenario a day instead of a yearly slideshow.",
+        description: "Every day, employees get one short scenario that fits their role, across 6 topics like phishing and social engineering. Security teams write and approve content through a 4 step review, and leaders see team trends without anyone's individual answers being exposed. A phone app for employees, a web portal for admins. Built with Claude Code and OpenAI Codex, each reviewing the other's work.",
         tech: ["Flutter", "Next.js", "FastAPI", "PostgreSQL", "OIDC", "Security Awareness"],
         links: { github: "", demo: "" }
     },
@@ -195,8 +195,8 @@ export const projects = [
         title: "Agentic AI Security & Governance",
         category: "AI Governance",
         period: "Apr 2026",
-        summary: "Practical security requirements for agentic AI: oversight, auditability, runtime controls and data protection.",
-        description: "Defined governance requirements for agentic AI spanning human oversight, auditability, runtime controls, data protection and platform responsibility, turning emerging AI risks into practical security requirements.",
+        summary: "Rules of the road for AI that can take actions on its own.",
+        description: "Practical security requirements for AI agents: when a human should step in, how to keep a record of what the AI did, how to keep it in check while it runs, and how to protect the data it touches.",
         tech: ["AI Governance", "Agentic AI", "Runtime Controls", "Auditability"],
         links: { github: "", demo: "" }
     },
@@ -205,8 +205,8 @@ export const projects = [
         title: "ThreatLens",
         category: "Vulnerability Intelligence",
         period: "Feb 2026 to Aug 2026",
-        summary: "Connects NVD CVEs to MITRE ATT&CK, NIST 800-53 controls and Sigma detections to rank what to fix first.",
-        description: "Open source vulnerability intelligence platform that unifies 4 security sources through REST APIs and RAG. Correlates NVD CVEs with MITRE ATT&CK techniques, NIST 800-53 controls and Sigma detection logic in one analysis workflow.",
+        summary: "Helps security teams decide which weaknesses to fix first by connecting the dots across 4 sources.",
+        description: "Open source tool that puts known vulnerabilities, how attackers use them, which controls stop them and how to detect them all in one place, instead of four.",
         tech: ["NVD", "MITRE ATT&CK", "NIST 800-53", "Sigma", "RAG", "REST APIs"],
         links: { github: "", demo: "" }
     },
@@ -215,8 +215,8 @@ export const projects = [
         title: "LLM Security Evaluation & Observability",
         category: "AI Governance",
         period: "Nov 2025 to Jan 2026",
-        summary: "38 LLM traces analysed for injection and compromise; 3 vulnerable models kept out of production.",
-        description: "Auditable AI pipeline using Llama 3 and Arize Phoenix for model observability and decision transparency, with a forensic flight recorder built on OpenTelemetry. Analysed 38 LLM traces for injection and compromise and kept 3 vulnerable models out of production.",
+        summary: "Reviewed 38 AI runs for signs of tampering and kept 3 unsafe models out of production.",
+        description: "Built a flight recorder for AI, so every decision is logged and can be audited later. Used it to review 38 runs for signs of manipulation, which kept 3 vulnerable models from going live.",
         tech: ["OpenTelemetry", "Arize Phoenix", "Llama 3", "LLM Security", "Python"],
         links: { github: "https://github.com/OffensiveSage/LLM-Observability-Audit", demo: "" }
     },
@@ -225,8 +225,8 @@ export const projects = [
         title: "Cyber Threat Intelligence: Energy Sector",
         category: "Threat Intelligence",
         period: "Aug 2025 to Sep 2025",
-        summary: "OSINT-led threat analysis of a Fortune 500 energy company, mapped with MITRE ATT&CK.",
-        description: "Threat analysis for a Fortune 500 critical infrastructure company: 6 Priority Intelligence Requirements, threat actors mapped with MITRE ATT&CK, OSINT across CVE/NVD and E-ISAC advisories for SCADA/OT exposure, and a fusion center design with 11 roles.",
+        summary: "Looked at a Fortune 500 energy company the way an attacker would, then designed the team to defend it.",
+        description: "Used public information to map who might target the company and how, focused on the systems that keep the power grid running, and designed an 11 role threat intelligence team to keep watch.",
         tech: ["OSINT", "MITRE ATT&CK", "SCADA/OT", "Threat Intelligence"],
         links: { github: "", demo: "" }
     },
@@ -235,8 +235,8 @@ export const projects = [
         title: "SimplySecure",
         category: "Endpoint Compliance",
         period: "Personal project",
-        summary: "A macOS app that checks permissions, encryption and updates, and runs AI voice phishing drills.",
-        description: "macOS endpoint compliance and awareness tool built in SwiftUI. Checks app permissions, FileVault encryption, OS updates and browser security, uses Gemini and Perplexity APIs for privacy policy risk analysis, and runs AI voice phishing simulations for security awareness.",
+        summary: "A Mac app that checks whether your laptop is locked down, and whether you'd fall for a phishing phone call.",
+        description: "Checks app permissions, disk encryption, updates and browser safety, uses AI to flag risky privacy policies, and runs practice phishing calls with an AI voice so people learn to spot the real thing.",
         tech: ["SwiftUI", "macOS Security", "Gemini API", "AI Phishing Simulation"],
         links: { github: "https://github.com/OffensiveSage/SimplySecure", demo: "" }
     },
@@ -245,8 +245,8 @@ export const projects = [
         title: "XRPL Guardrails",
         category: "Supply Chain Security",
         period: "Personal project",
-        summary: "Preflight checks that block vulnerable dependencies before any XRP Ledger transaction runs.",
-        description: "Engineered a TypeScript wrapper and preflight system for XRP Ledger transactions, enforcing dependency pinning, SHA-256 lockfile integrity checks, and npm audit policies to block critical vulnerabilities before sensitive blockchain actions execute.",
+        summary: "A safety check that stops risky code before any crypto transaction goes through.",
+        description: "Before a transaction runs on the XRP Ledger, it confirms every software package is the expected, untouched version with no known critical vulnerabilities, and blocks the transaction if not.",
         tech: ["TypeScript", "XRP Ledger", "Supply Chain Security", "npm audit", "SHA-256"],
         links: { github: "https://github.com/OffensiveSage/xrpl-guardrails", demo: "" }
     },
@@ -255,8 +255,8 @@ export const projects = [
         title: "Change Healthcare Ransomware Attack",
         category: "Incident Analysis",
         period: "Case study",
-        summary: "Root-cause analysis of a $2.3B attack on 15B healthcare transactions, plus the zero-trust plan to prevent it.",
-        description: "Analyzed the $2.3B ransomware attack affecting 15 billion healthcare transactions, identifying missing MFA as the root cause and developing a threat intelligence report with HIPAA-aligned zero-trust and incident response recommendations.",
+        summary: "How one missing login check led to a $2.3B attack on US healthcare, and how to stop it happening again.",
+        description: "Traced the ransomware attack that hit 15 billion healthcare transactions back to a missing extra login step (MFA), then wrote a plan to prevent a repeat, built on zero trust and HIPAA.",
         tech: ["Threat Intelligence", "HIPAA", "Zero-Trust", "Incident Response"],
         links: { github: "", demo: "" }
     },
@@ -265,8 +265,8 @@ export const projects = [
         title: "AI Security Research",
         category: "LLM Security",
         period: "Research",
-        summary: "An ML framework to detect, isolate and remediate prompt injection in LLMs.",
-        description: "Developed a machine learning threat detection framework for real-time detection, isolation, and remediation of prompt injection vulnerabilities in LLMs, validating attack mitigation controls through adversarial testing and threat modeling.",
+        summary: "Teaching AI to notice when someone is trying to trick it.",
+        description: "A machine learning system that spots prompt injection attacks on AI language models in real time, isolates them and cleans up after them, then tested by attacking it on purpose.",
         tech: ["Machine Learning", "LLM Security", "Threat Modeling", "Adversarial Testing"],
         links: { github: "", demo: "" }
     }
