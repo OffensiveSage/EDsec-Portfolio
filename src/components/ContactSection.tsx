@@ -109,9 +109,10 @@ export default function ContactSection() {
                         time: currentTime,
                     }
                 );
-            } catch (contactErr: any) {
+            } catch (contactErr: unknown) {
                 console.error("Contact form email failed:", contactErr);
-                throw new Error(contactErr?.text || contactErr?.message || 'Failed to send form submission');
+                const providerErr = contactErr as { text?: string; message?: string } | null;
+                throw new Error(providerErr?.text || providerErr?.message || 'Failed to send form submission');
             }
 
             // Try to send auto-reply (don't fail if this fails, main email is more important)
@@ -124,7 +125,7 @@ export default function ContactSection() {
                         from_email: trimmedEmail,
                     }
                 );
-            } catch (autoReplyErr: any) {
+            } catch (autoReplyErr: unknown) {
                 console.error("Auto-reply email failed:", autoReplyErr);
                 // Continue even if auto-reply fails - main email was sent
             }
@@ -142,13 +143,14 @@ export default function ContactSection() {
             } else {
                 throw new Error('Failed to send form submission');
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             // Keep provider details in the console; visitors get a friendly fallback.
             console.error("Failed to send email:", err);
 
-            const isRateLimited = typeof err?.message === 'string' && err.message.startsWith('Rate limit');
+            const errMessage = (err as { message?: unknown } | null)?.message;
+            const isRateLimited = typeof errMessage === 'string' && errMessage.startsWith('Rate limit');
             const errorMessage = isRateLimited
-                ? err.message
+                ? errMessage
                 : "Something went wrong sending your message. You can email me directly instead.";
 
             setIsEncrypting(false);

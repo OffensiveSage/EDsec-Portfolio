@@ -15,11 +15,11 @@ export default function Home() {
       <ScrollProgress />
       <main className="max-w-7xl mx-auto">
         <Hero />
-        <EducationSection />
-        <ProjectsSection />
         <ExperienceSection />
-        <AboutSection />
+        <ProjectsSection />
+        <EducationSection />
         <SkillsSection />
+        <AboutSection />
         <ContactSection />
         <footer className="px-4 sm:px-6 pt-10 pb-32 border-t border-line text-sm text-muted flex flex-col sm:flex-row justify-between gap-2">
           <span>© {new Date().getFullYear()} {profile.name}</span>
