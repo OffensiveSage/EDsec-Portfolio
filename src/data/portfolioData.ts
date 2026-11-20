@@ -99,7 +99,7 @@ export const experiences = [
     {
         id: 7,
         role: "Project Management Officer",
-        company: "CredXO",
+        company: "Stealth Fintech Startup",
         period: "06/2024 - 06/2025",
         description: "Kept a 12 to 15 person tech team at a crypto payments startup moving in the same direction, set the ground rules for keeping company data safe, and helped get the team ready to pitch on Shark Tank India.",
         tech: ["Project Management", "Security Policies", "Blockchain", "Fintech"]
@@ -107,7 +107,7 @@ export const experiences = [
     {
         id: 8,
         role: "Cybersecurity Analyst Intern",
-        company: "Hacker Bro Technologies",
+        company: "HB Tech",
         period: "06/2023 - 08/2023",
         description: "Where it all started: a first taste of real security work, learning how attackers break in and how defenders catch them.",
         tech: ["SIEM", "Penetration Testing", "Nmap", "Wireshark", "Burp Suite"]
