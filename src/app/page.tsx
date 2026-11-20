@@ -2,6 +2,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import BottomBar from "@/components/BottomBar";
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
+import EducationSection from "@/components/EducationSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import SkillsSection from "@/components/SkillsSection";
@@ -14,10 +15,11 @@ export default function Home() {
       <ScrollProgress />
       <main className="max-w-7xl mx-auto">
         <Hero />
-        <ProjectsSection />
         <ExperienceSection />
-        <AboutSection />
+        <ProjectsSection />
+        <EducationSection />
         <SkillsSection />
+        <AboutSection />
         <ContactSection />
         <footer className="px-4 sm:px-6 pt-10 pb-32 border-t border-line text-sm text-muted flex flex-col sm:flex-row justify-between gap-2">
           <span>© {new Date().getFullYear()} {profile.name}</span>

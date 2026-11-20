@@ -125,12 +125,12 @@ export async function POST(request: NextRequest) {
                 }
             }
         );
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('API route error:', error);
         return NextResponse.json(
-            { 
+            {
                 error: 'Internal server error',
-                details: error?.message || 'Unknown error'
+                details: (error as { message?: string } | null)?.message || 'Unknown error'
             },
             { status: 500 }
         );

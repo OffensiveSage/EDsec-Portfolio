@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { ShieldCheck } from "lucide-react";
 
 const sections = [
-    { id: "work", label: "Projects" },
     { id: "experience", label: "Experience" },
-    { id: "about", label: "About" },
+    { id: "work", label: "Projects" },
     { id: "education", label: "Education" },
     { id: "skills", label: "Skills" },
+    { id: "about", label: "About" },
     { id: "contact", label: "Contact" },
 ];
 

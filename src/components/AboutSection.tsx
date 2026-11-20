@@ -1,4 +1,4 @@
-import { certifications, education, profile } from "@/data/portfolioData";
+import { certifications, profile } from "@/data/portfolioData";
 import SectionHeader from "./SectionHeader";
 
 export default function AboutSection() {
@@ -14,21 +14,6 @@ export default function AboutSection() {
                             <p className="text-muted text-lg leading-relaxed">{item.a}</p>
                         </div>
                     ))}
-
-                    <div id="education">
-                        <h3 className="font-display text-xl sm:text-2xl font-medium tracking-tight mb-4">Education</h3>
-                        <ul className="divide-y divide-line border-y border-line">
-                            {education.map((e) => (
-                                <li key={e.id} className="py-4 flex flex-col sm:flex-row sm:justify-between gap-1">
-                                    <span>
-                                        <span className="block font-medium">{e.school}</span>
-                                        <span className="block text-muted">{e.degree}</span>
-                                    </span>
-                                    <span className="text-sm text-muted shrink-0">{e.period}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
 
                     <div>
                         <h3 className="font-display text-xl sm:text-2xl font-medium tracking-tight mb-4">Certifications</h3>

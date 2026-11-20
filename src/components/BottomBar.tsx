@@ -7,8 +7,8 @@ import { profile } from "@/data/portfolioData";
 
 const nav = [
     { label: "Home", href: "#top", icon: Home },
-    { label: "Work", href: "#work", icon: Layers },
     { label: "Experience", href: "#experience", icon: Briefcase },
+    { label: "Work", href: "#work", icon: Layers },
     { label: "Resume", href: "/resume", icon: FileText },
 ];
 
